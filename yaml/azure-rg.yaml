@@ -1,0 +1,11 @@
+apiVersion: azure.upbound.io/v1beta1
+kind: ResourceGroup
+metadata:
+  labels:
+    purpose: perf-test
+  name: perf-test-piotr
+spec:
+  forProvider:
+    location: "West Europe"
+  providerConfigRef:
+    name: provider-azure
