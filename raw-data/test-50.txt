@@ -1,0 +1,2 @@
+Experiment Duration  Average Time to Readiness of Registry  Peak Time to Readiness of Registry  Average Memory  Peak Memory  Average CPU  Peak CPU
+ 338.00               134.00                                 180.00                              1.65G           4.16G        38.00        66.00
