@@ -3,8 +3,7 @@ kind: ResourceGroup
 metadata:
   labels:
     purpose: perf-test
-    seed: "true"
-  name: perf-test-piotr
+  name: perf-test-piotr$random_suffix
 spec:
   forProvider:
     location: "West Europe"
