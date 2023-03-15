@@ -4,8 +4,9 @@ set export
 set shell := ["bash", "-uc"]
 
 yaml                                := justfile_directory() + "/yaml"
-uptest                              := justfile_directory() + "/uptest"
-file_prefix                         := justfile_directory() + "/test"
+uptest                              := justfile_directory() + "/perf-tool"
+raw_data                            := justfile_directory() + "/raw_data"
+file_prefix                         := "test"
 cluster                             := "piotr-azure-perf-test"
 context                             := "piotr@upbound.io@piotr-azure-perf-test.eu-central-1.eksctl.io"
 copy                                := if os() == "linux" { "xsel -ib"} else { "pbcopy" }
@@ -24,17 +25,10 @@ default:
 # * setup all
 setup_all: setup_eks get_kubeconfig setup_uxp install_monitoring setup_azure deploy_resource_group
 
-# delete eks cluster
-delete_eks:
-  @eksctl delete cluster --region=eu-central-1 --name={{cluster}}
-
+# SETUP {{{
 # setup eks cluster
 setup_eks: 
   @envsubst < {{yaml}}/cluster.yaml | eksctl create cluster --write-kubeconfig=false --config-file -
-
-# get cluster kubeconfig
-get_kubeconfig:
-  @eksctl utils write-kubeconfig --cluster={{cluster}} --region=eu-central-1 --kubeconfig=./config --set-kubeconfig-context=true
 
 # setup uxp
 setup_uxp:
@@ -53,25 +47,36 @@ setup_azure:
 # deploy resource group
 deploy_resource_group op='apply':
   @kubectl {{op}} -f {{yaml}}/azure-rg.yaml
+# }}}
 
+# get cluster kubeconfig
+get_kubeconfig:
+  @eksctl utils write-kubeconfig --cluster={{cluster}} --region=eu-central-1 --kubeconfig=./config --set-kubeconfig-context=true
+# EXECUTE {{{
+
+### }}}
+
+# REMOVE {{{
+# delete eks cluster
+delete_eks:
+  @eksctl delete cluster --region=eu-central-1 --name={{cluster}}
+# }}}
 # run tests and collect metrics
 run_tests iter='1':
   #!/usr/bin/env bash
   pod=$(kubectl -n upbound-system get pod -l pkg.crossplane.io/provider=provider-azure -o name)
   pod="${pod##*/}"
   node_ip=$(kubectl get nodes -o wide | awk ' FNR == 2 {print $6}')
-  go run http://github.com/upbound/uptest/cmd/perf@performance-tool2 \
+  cd {{uptest}} && go run {{uptest}}/cmd/perf/main.go \
+  # go run github.com/Piotr1215/perf-tool-uptest/cmd/perf@performance-tool2 \
          --mrs {{yaml}}/test-resource.yaml={{iter}} \
          --provider-pod "$pod" \
          --provider-namespace upbound-system \
          --node "$node_ip":9100 \
-         --step-duration 1s |& tee {{file_prefix}}-{{iter}}.txt
+         --step-duration 1s |& tee {{raw_data}}/{{file_prefix}}-{{iter}}.txt
 
-  echo "Getting managed resources state"
-  kubectl get managed -oyaml > {{file_prefix}}-{{iter}}-mrs.txt
-  
   echo "Getting provider pod processes"
-  kubectl -n upbound-system exec -i "$pod" -- ps -o pid,ppid,etime,comm,args > {{file_prefix}}-{{iter}}-ps.log
+  kubectl -n upbound-system exec -i "$pod" -- ps -o pid,ppid,etime,comm,args > {{raw_data}}/{{file_prefix}}-{{iter}}-ps.log
 
 # create arbitrary number of test resource
 create_test_resource iter='2':
