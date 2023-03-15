@@ -60,7 +60,7 @@ run_tests iter='1':
   pod=$(kubectl -n upbound-system get pod -l pkg.crossplane.io/provider=provider-azure -o name)
   pod="${pod##*/}"
   node_ip=$(kubectl get nodes -o wide | awk ' FNR == 2 {print $6}')
-  cd {{uptest}} && go run {{uptest}}/cmd/perf/main.go \
+  go run http://github.com/upbound/uptest/cmd/perf@performance-tool2 \
          --mrs {{yaml}}/test-resource.yaml={{iter}} \
          --provider-pod "$pod" \
          --provider-namespace upbound-system \
@@ -90,6 +90,12 @@ launch_grafana:
 launch_prometheus:
   nohup {{browse}} http://localhost:9090 >/dev/null 2>&1
   kubectl port-forward -n prometheus svc/kube-prometheus-stack-prometheus 9090:9090
+
+# get node ip
+copy_node_ip:
+  #!/usr/bin/env bash
+  node_ip=$(kubectl get nodes -o wide | awk ' FNR == 2 {print $6}')
+  echo "$node_ip" | {{copy}}
 
 # get prometheus clusterIP for prometheus configuration
 copy_prometheus_url:
