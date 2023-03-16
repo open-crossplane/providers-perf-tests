@@ -6,51 +6,60 @@ set shell := ["bash", "-uc"]
 yaml                                := justfile_directory() + "/yaml"
 uptest                              := justfile_directory() + "/perf-tool"
 raw_data                            := justfile_directory() + "/raw_data"
-file_prefix                         := "test"
-cluster                             := "piotr-azure-perf-test"
-context                             := "piotr@upbound.io@piotr-azure-perf-test.eu-central-1.eksctl.io"
 copy                                := if os() == "linux" { "xsel -ib"} else { "pbcopy" }
 browse                              := if os() == "linux" { "xdg-open "} else { "open" }
-# azure_provider_pod                  := `kubectl -n upbound-system get pod -l pkg.crossplane.io/provider=provider-azure -o name`
-
-export node                         := "m5.2xlarge"
-export azure_provider_version       := env_var_or_default('AZURE_PROVIDER', "v0.28.0")
-export random_suffix                := `echo $RANDOM`
-export base64encoded_azure_creds    := `base64 ~/crossplane-azure-provider-key.json | tr -d "\n"`
-
+gcp_provider_version                := env_var_or_default('GCP_PROVIDER', "v0.29.0")
+azure_provider_version              := env_var_or_default('AZURE_PROVIDER', "v0.28.0")
+file_prefix                         := "test"
+cluster                             := "piotr-azure-perf-test"
+random_suffix                       := `echo $RANDOM`
+base64encoded_azure_creds           := `base64 ~/crossplane-azure-provider-key.json | tr -d "\n"`
+base64encoded_gcp_creds             := `base64 ~/creds-gcp.json | tr -d "\n"`
+gcp_project_id                      := "crossplane-playground"
+context                             := "piotr@upbound.io@piotr-azure-perf-test.eu-central-1.eksctl.io"
+node                                := "m5.2xlarge"
+                                    
 # this list of available targets
 default:
   @just --list --unsorted
 
+# SETUP {{{
 # * entry setup recepie, possible values: base (defult), azure, aws, gcp, all
 # - aws: eks, uxp, observability, aws provider
 setup prov='base': 
   @just setup_{{prov}}
 
 # * setup base infrastructure with cluster and observability
-setup_base: setup_eks get_kubeconfig setup_uxp install_monitoring 
+setup_base: setup_eks get_kubeconfig deploy_uxp deploy_monitoring 
 
 # * setup azure
 setup_azure: setup_base
   just deploy_azure_provider deploy_resource_group
 
 # * setup aws
-setup_aws: setup_eks get_kubeconfig setup_uxp install_monitoring 
+setup_aws: setup_eks get_kubeconfig deploy_uxp deploy_monitoring 
 
 # * setup gcp
-setup_gcp: setup_eks get_kubeconfig setup_uxp install_monitoring 
+setup_gcp: setup_base
+  just deploy_gcp_provider
 
-# SETUP {{{
 # setup eks cluster
 setup_eks: 
   @envsubst < {{yaml}}/cluster.yaml | eksctl create cluster --write-kubeconfig=false --config-file -
 
 # setup uxp
-setup_uxp:
+deploy_uxp:
   @echo "Installing UXP"
   @kubectl create namespace upbound-system
   @up uxp install
   @kubectl wait --for condition=Available=True --timeout=300s deployment/crossplane --namespace upbound-system
+
+# deploy GCP official provider
+deploy_gcp_provider:
+  @echo "Setting up GCP official provider"
+  @envsubst < {{yaml}}/gcp-provider.yaml | kubectl apply -f - 
+  @kubectl wait --for condition=healthy --timeout=300s provider/provider-gcp
+  @envsubst < {{yaml}}/gcp-provider-config.yaml | kubectl apply -f - 
 
 # setup Azure official provider
 deploy_azure_provider:
@@ -62,45 +71,23 @@ deploy_azure_provider:
 # deploy resource group
 deploy_resource_group op='apply':
   @kubectl {{op}} -f {{yaml}}/azure-rg.yaml
+
+# deploy observability
+deploy_monitoring:
+  @helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+  just update_helm
+  @helm install kube-prometheus-stack  prometheus-community/kube-prometheus-stack -n prometheus \
+   --set namespaceOverride=prometheus \
+   --set grafana.namespaceOverride=prometheus \
+   --set grafana.defaultDashboardsEnabled=true \
+   --set kube-state-metrics.namespaceOverride=prometheus \
+   --set prometheus-node-exporter.namespaceOverride=prometheus --create-namespace
 # }}}
 
-# get cluster kubeconfig
-get_kubeconfig:
-  @eksctl utils write-kubeconfig --cluster={{cluster}} --region=eu-central-1 --kubeconfig=./config --set-kubeconfig-context=true
-# EXECUTE {{{
-
-### }}}
-
-# REMOVE {{{
-# delete eks cluster
-delete_eks:
-  @eksctl delete cluster --region=eu-central-1 --name={{cluster}}
-# }}}
-# run tests and collect metrics
-run_tests iter='1':
-  #!/usr/bin/env bash
-  pod=$(kubectl -n upbound-system get pod -l pkg.crossplane.io/provider=provider-azure -o name)
-  pod="${pod##*/}"
-  node_ip=$(kubectl get nodes -o wide | awk ' FNR == 2 {print $6}')
-  cd {{uptest}} && go run {{uptest}}/cmd/perf/main.go \
-  # go run github.com/Piotr1215/perf-tool-uptest/cmd/perf@performance-tool2 \
-         --mrs {{yaml}}/test-resource.yaml={{iter}} \
-         --provider-pod "$pod" \
-         --provider-namespace upbound-system \
-         --node "$node_ip":9100 \
-         --step-duration 1s |& tee {{raw_data}}/{{file_prefix}}-{{iter}}.txt
-
-  echo "Getting provider pod processes"
-  kubectl -n upbound-system exec -i "$pod" -- ps -o pid,ppid,etime,comm,args > {{raw_data}}/{{file_prefix}}-{{iter}}-ps.log
-
-# create arbitrary number of test resource
-create_test_resource iter='2':
-  #!/usr/bin/env bash
-  for ((i = 0; i < {{iter}}; i++)); do
-    random_suffix=`echo $RANDOM`
-    envsubst < {{yaml}}/test-resource.yaml | kubectl apply -f -
-  done
-
+# HELPERS {{{
+# flexible watch
+watch RESOURCE='crossplane':
+  watch kubectl get {{RESOURCE}}
 # port forward grafana, user: admin, pw: prom-operator
 launch_grafana:
   nohup {{browse}} http://localhost:3000 >/dev/null 2>&1
@@ -127,17 +114,53 @@ copy_prometheus_url:
 update_helm:
   @helm repo update
 
-# install observability
-install_monitoring:
-  @helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-  just update_helm
-  @helm install kube-prometheus-stack  prometheus-community/kube-prometheus-stack -n prometheus \
-   --set namespaceOverride=prometheus \
-   --set grafana.namespaceOverride=prometheus \
-   --set grafana.defaultDashboardsEnabled=true \
-   --set kube-state-metrics.namespaceOverride=prometheus \
-   --set prometheus-node-exporter.namespaceOverride=prometheus --create-namespace
+# get cluster kubeconfig
+get_kubeconfig:
+  @eksctl utils write-kubeconfig --cluster={{cluster}} --region=eu-central-1 --kubeconfig=./config --set-kubeconfig-context=true
 
-# flexible watch
-watch RESOURCE='crossplane':
-  watch kubectl get {{RESOURCE}}
+# deploy a sample bucket to verify the setup
+test_gcp_deployment:
+  @echo "Test if cluster setup succesfull by depoloying a sample bucket"
+  @envsubst < {{yaml}}/bucket.yaml | kubectl apply -f -
+
+# delete GCP test bucket
+delete_bucket:
+  @echo "Delete sample bucket if present"
+  @envsubst < {{yaml}}/bucket.yaml | kubectl delete --ignore-not-found -f - 
+
+
+### }}}
+
+# EXECUTE {{{
+# run tests and collect metrics
+run_tests iter='1':
+  #!/usr/bin/env bash
+  pod=$(kubectl -n upbound-system get pod -l pkg.crossplane.io/provider=provider-azure -o name)
+  pod="${pod##*/}"
+  node_ip=$(kubectl get nodes -o wide | awk ' FNR == 2 {print $6}')
+  cd {{uptest}} && go run {{uptest}}/cmd/perf/main.go \
+  # go run github.com/Piotr1215/perf-tool-uptest/cmd/perf@performance-tool2 \
+         --mrs {{yaml}}/test-resource.yaml={{iter}} \
+         --provider-pod "$pod" \
+         --provider-namespace upbound-system \
+         --node "$node_ip":9100 \
+         --step-duration 1s |& tee {{raw_data}}/{{file_prefix}}-{{iter}}.txt
+
+  echo "Getting provider pod processes"
+  kubectl -n upbound-system exec -i "$pod" -- ps -o pid,ppid,etime,comm,args > {{raw_data}}/{{file_prefix}}-{{iter}}-ps.log
+
+# create arbitrary number of test resource
+create_test_resource iter='2':
+  #!/usr/bin/env bash
+  for ((i = 0; i < {{iter}}; i++)); do
+    random_suffix=`echo $RANDOM`
+    envsubst < {{yaml}}/test-resource.yaml | kubectl apply -f -
+  done
+# }}}
+
+# TEARDOWN {{{
+# delete eks cluster
+delete_eks:
+  @eksctl delete cluster --region=eu-central-1 --name={{cluster}}
+# }}}
+
