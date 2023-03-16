@@ -22,8 +22,23 @@ export base64encoded_azure_creds    := `base64 ~/crossplane-azure-provider-key.j
 default:
   @just --list --unsorted
 
-# * setup all
-setup_all: setup_eks get_kubeconfig setup_uxp install_monitoring setup_azure deploy_resource_group
+# * entry setup recepie, possible values: base (defult), azure, aws, gcp, all
+# - aws: eks, uxp, observability, aws provider
+setup prov='base': 
+  @just setup_{{prov}}
+
+# * setup base infrastructure with cluster and observability
+setup_base: setup_eks get_kubeconfig setup_uxp install_monitoring 
+
+# * setup azure
+setup_azure: setup_base
+  just deploy_azure_provider deploy_resource_group
+
+# * setup aws
+setup_aws: setup_eks get_kubeconfig setup_uxp install_monitoring 
+
+# * setup gcp
+setup_gcp: setup_eks get_kubeconfig setup_uxp install_monitoring 
 
 # SETUP {{{
 # setup eks cluster
@@ -38,7 +53,7 @@ setup_uxp:
   @kubectl wait --for condition=Available=True --timeout=300s deployment/crossplane --namespace upbound-system
 
 # setup Azure official provider
-setup_azure:
+deploy_azure_provider:
   @echo "Setting up Azure official provider"
   @envsubst < {{yaml}}/azure-provider.yaml | kubectl apply -f - 
   @kubectl wait --for condition=healthy --timeout=300s provider/provider-azure
