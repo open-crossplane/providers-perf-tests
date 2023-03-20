@@ -1,0 +1,13 @@
+apiVersion: storage.gcp.upbound.io/v1beta1
+kind: Bucket
+metadata:
+  name: perftestbucket$random_suffix
+spec:
+  forProvider:
+    location: us-west1
+    storageClass: STANDARD
+    labels:
+      owner: squad-platform
+      purpose: performance-testing
+  providerConfigRef:
+      name: provider-gcp
