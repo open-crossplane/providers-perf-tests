@@ -157,6 +157,10 @@ delete_bucket:
 run_tests prov iter='1':
   #!/usr/bin/env bash
   # go run github.com/Piotr1215/perf-tool-uptest/cmd/perf@performance-tool2 \
+  if ! curl -q localhost:9090 > /dev/null 2>&1; then
+    echo "Launch prometheus metrics server port forwarding with just launch_prometheus"
+    exit 1
+  fi
   pod=$(kubectl -n upbound-system get pod -l pkg.crossplane.io/provider=provider-{{prov}} -o name)
   pod="${pod##*/}"
   node_ip=$(kubectl get nodes -o wide | awk ' FNR == 2 {print $6}')
