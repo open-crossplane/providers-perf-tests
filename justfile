@@ -5,17 +5,20 @@ set shell := ["bash", "-uc"]
 
 yaml                                := justfile_directory() + "/yaml"
 uptest                              := justfile_directory() + "/perf-tool"
-raw_data                            := justfile_directory() + "/raw_data"
+raw_data                            := justfile_directory() + "/raw-data"
 copy                                := if os() == "linux" { "xsel -ib"} else { "pbcopy" }
 browse                              := if os() == "linux" { "xdg-open "} else { "open" }
 gcp_provider_version                := env_var_or_default('GCP_PROVIDER', "v0.29.0")
-azure_provider_version              := env_var_or_default('AZURE_PROVIDER', "v0.28.0")
+azure_provider_version              := ""
+# azure_provider_version              := env_var_or_default('AZURE_PROVIDER', "v0.28.0")
+# azure_provider_image                := "xpkg.upbound.io/upbound/provider-azure:"
+azure_provider_image                := "ulucinar/provider-azure-amd64:d0932e28"
 file_prefix                         := "test"
 cluster                             := "piotr-azure-perf-test"
 random_suffix                       := `echo $RANDOM`
 base64encoded_azure_creds           := `base64 ~/crossplane-azure-provider-key.json | tr -d "\n"`
-base64encoded_gcp_creds             := `base64 ~/creds-gcp.json | tr -d "\n"`
-gcp_project_id                      := "crossplane-playground"
+base64encoded_gcp_creds             := `base64 ~/gcp-creds-platform.json | tr -d "\n"`
+gcp_project_id                      := "squad-platform-playground"
 context                             := "piotr@upbound.io@piotr-azure-perf-test.eu-central-1.eksctl.io"
 node                                := "m5.2xlarge"
                                     
@@ -54,12 +57,24 @@ deploy_uxp:
   @up uxp install
   @kubectl wait --for condition=Available=True --timeout=300s deployment/crossplane --namespace upbound-system
 
+# remove GCP official provider
+remove_gcp_provider:
+  @echo "Remove GCP official provider"
+  @envsubst < {{yaml}}/gcp-provider.yaml | kubectl delete -f - 
+  @envsubst < {{yaml}}/gcp-provider-config.yaml | kubectl delete -f - 
+
 # deploy GCP official provider
 deploy_gcp_provider:
   @echo "Setting up GCP official provider"
   @envsubst < {{yaml}}/gcp-provider.yaml | kubectl apply -f - 
   @kubectl wait --for condition=healthy --timeout=300s provider/provider-gcp
   @envsubst < {{yaml}}/gcp-provider-config.yaml | kubectl apply -f - 
+
+# remove Azure official provider
+remove_azure_provider:
+  @echo "Setting up Azure official provider"
+  @envsubst < {{yaml}}/azure-provider.yaml | kubectl delete -f - 
+  @envsubst < {{yaml}}/azure-provider-config.yaml | kubectl delete -f - 
 
 # setup Azure official provider
 deploy_azure_provider:
@@ -104,6 +119,14 @@ copy_node_ip:
   node_ip=$(kubectl get nodes -o wide | awk ' FNR == 2 {print $6}')
   echo "$node_ip" | {{copy}}
 
+# get prometheus query for memory
+copy_prometheus_memory_metric prov:
+  #!/usr/bin/env bash
+  pod=$(kubectl -n upbound-system get pod -l pkg.crossplane.io/provider=provider-{{prov}} -o name)
+  pod="${pod##*/}"
+  sum="sum(node_namespace_pod_container:container_memory_working_set_bytes{pod="\"$pod\"", namespace="\"upbound-system"\"})"
+  echo -n "$sum" | {{copy}}
+
 # get prometheus clusterIP for prometheus configuration
 copy_prometheus_url:
   #!/usr/bin/env bash
@@ -133,21 +156,21 @@ delete_bucket:
 
 # EXECUTE {{{
 # run tests and collect metrics
-run_tests iter='1':
+run_tests prov iter='1':
   #!/usr/bin/env bash
-  pod=$(kubectl -n upbound-system get pod -l pkg.crossplane.io/provider=provider-azure -o name)
+  # go run github.com/Piotr1215/perf-tool-uptest/cmd/perf@performance-tool2 \
+  pod=$(kubectl -n upbound-system get pod -l pkg.crossplane.io/provider=provider-{{prov}} -o name)
   pod="${pod##*/}"
   node_ip=$(kubectl get nodes -o wide | awk ' FNR == 2 {print $6}')
   cd {{uptest}} && go run {{uptest}}/cmd/perf/main.go \
-  # go run github.com/Piotr1215/perf-tool-uptest/cmd/perf@performance-tool2 \
-         --mrs {{yaml}}/test-resource.yaml={{iter}} \
+         --mrs {{yaml}}/test-resource-{{prov}}.yaml={{iter}} \
          --provider-pod "$pod" \
          --provider-namespace upbound-system \
          --node "$node_ip":9100 \
-         --step-duration 1s |& tee {{raw_data}}/{{file_prefix}}-{{iter}}.txt
+         --step-duration 1s |& tee {{raw_data}}/{{file_prefix}}-{{prov}}-{{iter}}.txt
 
   echo "Getting provider pod processes"
-  kubectl -n upbound-system exec -i "$pod" -- ps -o pid,ppid,etime,comm,args > {{raw_data}}/{{file_prefix}}-{{iter}}-ps.log
+  kubectl -n upbound-system exec -i "$pod" -- ps -o pid,ppid,etime,comm,args > {{raw_data}}/{{file_prefix}}-{{prov}}-{{iter}}-ps.log
 
 # create arbitrary number of test resource
 create_test_resource iter='2':
