@@ -5,7 +5,7 @@
 3. [It's like a Makefile _just_ better](#it's-like-a-makefile-_just_-better)
 4. [Envsubst](#envsubst)
 5. [Justfile overview](#justfile-overview)
-   * [Variables propagation](#variables-propagation)
+   - [Variables propagation](#variables-propagation)
 6. [Testing process](#testing-process)
 7. [Formatting output and interpreting tests results](#formatting-output-and-interpreting-tests-results)
 
