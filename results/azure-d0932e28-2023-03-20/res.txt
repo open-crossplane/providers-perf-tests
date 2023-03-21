@@ -1,0 +1,5 @@
+test-2023-03-20-azure-d0932e28-1; Experiment Duration;Average Time to Readiness in seconds ;Peak Time to Readiness in seconds ;Average Memory;Peak Memory;Average CPU %;Peak CPU %
+test-2023-03-20-azure-d0932e28-1;  32.00             ; 47.00                               ; 47.00                            ; 285.66M      ; 302.61M   ; 3.00      ; 3.00
+test-2023-03-20-azure-d0932e28-10;  124.00            ; 53.00                               ; 56.00                            ; 515.19M      ; 791.32M   ; 6.00      ; 9.00
+test-2023-03-20-azure-d0932e28-50;  328.00            ; 133.00                              ; 174.00                           ; 913.96M      ; 2.40G     ; 18.00     ; 31.00
+test-2023-03-20-azure-d0932e28-100;  869.00            ; 150.00                              ; 309.00                           ; 920.10M      ; 2.57G     ; 26.00     ; 35.00

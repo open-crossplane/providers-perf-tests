@@ -1,0 +1,2 @@
+test-2023-03-20-azure-d0932e28-10; Experiment Duration;Average Time to Readiness of Registry;Peak Time to Readiness of Registry;Average Memory;Peak Memory;Average CPU;Peak CPU
+test-2023-03-20-azure-d0932e28-10;  124.00            ; 53.00                               ; 56.00                            ; 515.19M      ; 791.32M   ; 6.00      ; 9.00

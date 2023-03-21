@@ -1,0 +1,2 @@
+datamash: transpose input error: line 2 has 5 fields (previous lines had 2);
+see --help to disable strict mode

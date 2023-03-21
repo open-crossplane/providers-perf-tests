@@ -3,22 +3,29 @@ set export
 
 set shell := ["bash", "-uc"]
 
+# Direcotories variables
 yaml                                := justfile_directory() + "/yaml"
 uptest                              := justfile_directory() + "/perf-tool"
 raw_data                            := justfile_directory() + "/raw-data"
+
+# OS specific variables
 copy                                := if os() == "linux" { "xsel -ib"} else { "pbcopy" }
 browse                              := if os() == "linux" { "xdg-open "} else { "open" }
+
+# Provider related variables
 gcp_provider_version                := env_var_or_default('GCP_PROVIDER', "v0.29.0")
 azure_provider_version              := "d0932e28"
 # azure_provider_version              := env_var_or_default('AZURE_PROVIDER', "v0.28.0")
 # azure_provider_image                := "xpkg.upbound.io/upbound/provider-azure:"
-azure_provider_image                := "ulucinar/provider-azure-amd64:"
-file_prefix                         := `echo test-$(date +%F)`
-cluster                             := "piotr-azure-perf-test"
-random_suffix                       := `echo $RANDOM`
 base64encoded_azure_creds           := `base64 ~/crossplane-azure-provider-key.json | tr -d "\n"`
 base64encoded_gcp_creds             := `base64 ~/gcp-creds-platform.json | tr -d "\n"`
 gcp_project_id                      := "squad-platform-playground"
+azure_provider_image                := "ulucinar/provider-azure-amd64:"
+
+# Other variables
+file_prefix                         := `echo test-$(date +%F)`
+cluster                             := "piotr-azure-perf-test"
+random_suffix                       := `echo $RANDOM`
 context                             := "piotr@upbound.io@piotr-azure-perf-test.eu-central-1.eksctl.io"
 node                                := "m5.2xlarge"
 

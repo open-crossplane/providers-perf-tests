@@ -1,0 +1,2 @@
+Experiment Duration  Average Time to Readiness of Bucket  Peak Time to Readiness of Bucket  Average Memory  Peak Memory  Average CPU  Peak CPU
+ 418.00               341.00                               351.00                            741.97M         1.26G        17.00        40.00
