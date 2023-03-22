@@ -11,7 +11,7 @@ bufdo :%s/^.*msg="\(.*\) \([0-9.]\+\).*$/\1 \2/g
 ```
 
 3. Format values output
-`bufdo :%s/[0-9.]\+/\=system('numfmt --to=si --format %.2f', submatch(0))`
+`bufdo :%s/[0-9.]\+/\=system('numfmt --format %.2f', submatch(0))`
 
 4. Transpose data to columnar layout with ; separator to make the file CSV
 compatible 
