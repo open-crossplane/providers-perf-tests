@@ -16,11 +16,11 @@ browse                              := if os() == "linux" { "xdg-open "} else { 
 gcp_provider_version                := "v0.29.0-e45875a" # env_var_or_default('GCP_PROVIDER', "v0.29.0")
 gcp_provider_image                  := "ulucinar/provider-gcp-amd64:"
 gcp_project_id                      := "squad-platform-playground"
-base64encoded_gcp_creds             := `base64 ~/gcp-creds-platform.json | tr -d "\n"`
+base64encoded_gcp_creds             := `base64 $GCP_PROVIDER_CREDS | tr -d "\n"` # Variable containing path to a file with credentials for GCP provider
 
 azure_provider_version              := "d0932e28" # env_var_or_default('AZURE_PROVIDER', "v0.28.0")
 azure_provider_image                := "ulucinar/provider-azure-amd64:" # "xpkg.upbound.io/upbound/provider-azure:"
-base64encoded_azure_creds           := `base64 ~/crossplane-azure-provider-key.json | tr -d "\n"`
+base64encoded_azure_creds           := `base64 $AZURE_PROVIDER_CREDS | tr -d "\n"` # Variable containing path to a file with credentials for AZURE provider
 
 # Other variables
 file_prefix                         := `echo test-$(date +%F)`
@@ -34,10 +34,6 @@ node                                := "m5.2xlarge"
 # this list of available targets
 default:
   @just --list --unsorted
-
-testme:
-  echo {{context}}
-  echo {{user_id}}
 
 # BASE INFRA SETUP {{{
 # * entry setup recepie, possible values: base (defult), azure, aws, gcp, all
@@ -197,7 +193,7 @@ update_helm:
 
 # get cluster kubeconfig
 get_kubeconfig:
-  @eksctl utils write-kubeconfig --cluster={{cluster}} --region=eu-central-1 --kubeconfig=./config --set-kubeconfig-context=true
+  @eksctl utils write-kubeconfig --cluster={{cluster_name}} --region=eu-central-1 --kubeconfig=./config --set-kubeconfig-context=true
 
 # deploy a sample bucket to verify the setup
 test_gcp_deployment:
