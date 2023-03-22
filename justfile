@@ -24,11 +24,11 @@ base64encoded_azure_creds           := `base64 ~/crossplane-azure-provider-key.j
 
 # Other variables
 file_prefix                         := `echo test-$(date +%F)`
-cluster                             := "piotr-perf-test"
+cluster_name                        := "piotr-perf-test"
 eks_region                          := "eu-central-1"
 user_id                             := `aws sts get-caller-identity | grep -i userid | awk -F ':' '{print $3}' | cut -d '"' -f1`
 random_suffix                       := `echo $RANDOM`
-context                             := user_id+"@"+cluster+"."+eks_region+".eksctl.io"
+context                             := user_id+"@"+cluster_name+"."+eks_region+".eksctl.io"
 node                                := "m5.2xlarge"
 
 # this list of available targets
@@ -249,6 +249,6 @@ create_test_resource iter='2':
 # TEARDOWN {{{
 # delete eks cluster
 delete_eks:
-  @eksctl delete cluster --region=eu-central-1 --name={{cluster}}
+  @eksctl delete cluster --region=eu-central-1 --name={{cluster_name}}
 # }}}
 

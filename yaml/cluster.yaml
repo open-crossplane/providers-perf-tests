@@ -2,7 +2,7 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: piotr-azure-perf-test
+  name: $cluster_name
   region: $eks_region
   version: "1.25"
 
