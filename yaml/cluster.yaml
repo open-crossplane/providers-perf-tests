@@ -3,7 +3,7 @@ kind: ClusterConfig
 
 metadata:
   name: piotr-azure-perf-test
-  region: eu-central-1
+  region: $eks_region
   version: "1.25"
 
 nodeGroups:

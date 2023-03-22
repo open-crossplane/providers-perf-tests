@@ -24,14 +24,20 @@ base64encoded_azure_creds           := `base64 ~/crossplane-azure-provider-key.j
 
 # Other variables
 file_prefix                         := `echo test-$(date +%F)`
-cluster                             := "piotr-azure-perf-test"
+cluster                             := "piotr-perf-test"
+eks_region                          := "eu-central-1"
+user_id                             := `aws sts get-caller-identity | grep -i userid | awk -F ':' '{print $3}' | cut -d '"' -f1`
 random_suffix                       := `echo $RANDOM`
-context                             := "piotr@upbound.io@piotr-azure-perf-test.eu-central-1.eksctl.io"
+context                             := user_id+"@"+cluster+"."+eks_region+".eksctl.io"
 node                                := "m5.2xlarge"
 
 # this list of available targets
 default:
   @just --list --unsorted
+
+testme:
+  echo {{context}}
+  echo {{user_id}}
 
 # BASE INFRA SETUP {{{
 # * entry setup recepie, possible values: base (defult), azure, aws, gcp, all
@@ -147,9 +153,14 @@ export_metrics:
 # }}}
 
 # HELPER RECEPIES {{{
+# get caller identity for cluster name
+get_aws_user_id:
+  @aws sts get-caller-identity | grep -i userid | awk -F ':' '{print $3}' | cut -d '"' -f1
+
 # flexible watch
 watch RESOURCE='crossplane':
   watch kubectl get {{RESOURCE}}
+
 # port forward grafana, user: admin, pw: prom-operator
 launch_grafana:
   nohup {{browse}} http://localhost:3000 >/dev/null 2>&1
