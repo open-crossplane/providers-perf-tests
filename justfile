@@ -13,14 +13,14 @@ copy                                := if os() == "linux" { "xsel -ib"} else { "
 browse                              := if os() == "linux" { "xdg-open "} else { "open" }
 
 # Provider related variables
-gcp_provider_version                := env_var_or_default('GCP_PROVIDER', "v0.29.0")
-azure_provider_version              := "d0932e28"
-# azure_provider_version              := env_var_or_default('AZURE_PROVIDER', "v0.28.0")
-# azure_provider_image                := "xpkg.upbound.io/upbound/provider-azure:"
-base64encoded_azure_creds           := `base64 ~/crossplane-azure-provider-key.json | tr -d "\n"`
-base64encoded_gcp_creds             := `base64 ~/gcp-creds-platform.json | tr -d "\n"`
+gcp_provider_version                := "v0.29.0-e45875a" # env_var_or_default('GCP_PROVIDER', "v0.29.0")
+gcp_provider_image                  := "ulucinar/provider-gcp-amd64:"
 gcp_project_id                      := "squad-platform-playground"
-azure_provider_image                := "ulucinar/provider-azure-amd64:"
+base64encoded_gcp_creds             := `base64 ~/gcp-creds-platform.json | tr -d "\n"`
+
+azure_provider_version              := "d0932e28" # env_var_or_default('AZURE_PROVIDER', "v0.28.0")
+azure_provider_image                := "ulucinar/provider-azure-amd64:" # "xpkg.upbound.io/upbound/provider-azure:"
+base64encoded_azure_creds           := `base64 ~/crossplane-azure-provider-key.json | tr -d "\n"`
 
 # Other variables
 file_prefix                         := `echo test-$(date +%F)`
@@ -104,6 +104,46 @@ deploy_monitoring:
    --set grafana.defaultDashboardsEnabled=true \
    --set kube-state-metrics.namespaceOverride=prometheus \
    --set prometheus-node-exporter.namespaceOverride=prometheus --create-namespace
+
+# create thanos objstore secret
+create_thanos_objstore_secret:
+  @kubectl create namespace prometheus --dry-run=client -o yaml | kubectl apply -f -
+  @kubectl create secret generic thanos-objstore-config --namespace=prometheus \
+    --from-file=objstore.yaml=<path_to_objstore_yaml> --dry-run=client -o yaml | kubectl apply -f -
+
+# deploy thanos
+deploy_thanos:
+  @helm repo add thanos https://thanos-io.github.io/thanos-chart
+  just update_helm
+  @helm install thanos thanos/thanos \
+   --create-namespace \
+   --namespace prometheus \
+   --set objstoreConfig.secretName=thanos-objstore-config \
+   --set objstoreConfig.secretKey=objstore.yaml
+
+# Export Thanos metrics
+export_metrics:
+  @echo "Ensure you have kubectl port-forward running for Thanos Query and Thanos Store Gateway"
+  # Get the current date, provider name, and version
+  current_date = `date +%F`
+  active_provider_version = `echo $ACTIVE_PROVIDER_VERSION`
+  provider_name = `echo $PROVIDER_NAME`
+
+  # Create the S3 folder path
+  s3_folder = "s3://your-s3-bucket/metrics/${current_date}/${provider_name}/${active_provider_version}"
+
+  # Run the thanos tools bucket web command
+  @docker run -it --rm \
+    -v $PWD/objstore.yaml:/etc/thanos/objstore.yaml:ro \
+    quay.io/thanos/thanos:v0.23.1 \
+    tools bucket web \
+    --listen ":8080" \
+    --objstore.config-file "/etc/thanos/objstore.yaml" \
+    --web.external-prefix="${s3_folder}"
+
+  # Forward port 8080 to access Thanos tools bucket web UI
+  @echo "You can now access Thanos tools bucket web UI at http://localhost:8080"
+  @kubectl port-forward svc/thanos-query -n prometheus 8080:8080
 # }}}
 
 # HELPER RECEPIES {{{
@@ -182,7 +222,11 @@ run_tests prov iter='1':
   echo "Getting provider pod processes"
   kubectl -n upbound-system exec -i "$pod" -- ps -o pid,ppid,etime,comm,args > {{raw_data}}/{{file_prefix}}-{{prov}}-{{iter}}-ps.log
 
-# create arbitrary number of test resource
+# create arbitra# Run tests and export metrics
+run_tests_and_export_metrics prov iter='1':
+  @just run_tests {{prov}} {{iter}}
+  @just export_metricsry number of test resource
+
 create_test_resource iter='2':
   #!/usr/bin/env bash
   for ((i = 0; i < {{iter}}; i++)); do
