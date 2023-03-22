@@ -152,7 +152,24 @@ These variables are propagated and substituted in the YAML files using the
 envsubst command. This allows the performance testing infrastructure to be
 dynamically configured and adapted to different scenarios.
 
+### Autoload variables
+
 Variables can be sourced from `.env` file or session environment or justfile.
+This is done with the following variables:
+
+```bash
+#!/usr/bin/env bash
+
+export KUBECONFIG="$PWD"/config
+export AWS_DEFAULT_PROFILE=609897127049_Half-Day-AdminAccess
+export GCP_PROVIDER_CREDS=~/gcp-creds-platform.json
+export AZURE_PROVIDER_CREDS=~/crossplane-azure-provider-key.json
+```
+
+```diff
+- Make sure to substitute the variables with the values for your environment
+```
+> Make sure to substitute those variables with accordingly
 
 ## Testing process
 

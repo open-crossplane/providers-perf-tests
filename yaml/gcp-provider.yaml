@@ -12,6 +12,6 @@ kind: Provider
 metadata:
   name: provider-gcp
 spec:
-  package: xpkg.upbound.io/upbound/provider-gcp:$gcp_provider_version
+  package: $gcp_provider_image$gcp_provider_version
   controllerConfigRef:
     name: gcp-config
