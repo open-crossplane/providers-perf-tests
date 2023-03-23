@@ -1,2 +1,0 @@
-Experiment Duration  Average Time to Readiness  Peak Time to Readiness  Average Memory  Peak Memory  Average CPU%  Peak CPU%
- 1.09h                54.01min                     55.36min                818.39M         1.26G        26.00        99.00

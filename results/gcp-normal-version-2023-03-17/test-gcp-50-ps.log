@@ -1,3 +1,0 @@
-PID   PPID  ELAPSED COMMAND          COMMAND
-    1     0  3h01   provider         provider -d
-13511     0  0:01   ps               ps -o pid,ppid,etime,comm,args

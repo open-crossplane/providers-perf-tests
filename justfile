@@ -13,8 +13,8 @@ copy                                := if os() == "linux" { "xsel -ib"} else { "
 browse                              := if os() == "linux" { "xdg-open "} else { "open" }
 
 # Provider related variables
-gcp_provider_version                := "v0.29.0-e45875a" # env_var_or_default('GCP_PROVIDER', "v0.29.0")
-gcp_provider_image                  := "ulucinar/provider-gcp-amd64:"
+gcp_provider_version                := "v0.29.0" # "v0.29.0-e45875a"
+gcp_provider_image                  := "xpkg.upbound.io/upbound/provider-gcp:" # "ulucinar/provider-gcp-amd64:"
 gcp_project_id                      := "squad-platform-playground"
 base64encoded_gcp_creds             := `base64 $GCP_PROVIDER_CREDS | tr -d "\n"` # Variable containing path to a file with credentials for GCP provider
 
@@ -226,6 +226,20 @@ run_tests prov iter='1':
          --provider-namespace upbound-system \
          --node "$node_ip":9100 \
          --step-duration 1s |& tee {{raw_data}}/{{file_prefix}}-{{prov}}-$active_provider_version-{{iter}}.txt
+
+# run all tests for provider GCP
+run_tests_gcp:
+  @just run_tests gcp 1 
+  @just run_tests gcp 10
+  @just run_tests gcp 50
+  @just run_tests gcp 100
+
+# run all tests for provider Azure
+run_tests_azure:
+  @just run_tests azure 1 
+  @just run_tests azure 10
+  @just run_tests azure 50
+  @just run_tests azure 100
 
 # create arbitra# Run tests and export metrics
 run_tests_and_export_metrics prov iter='1':
