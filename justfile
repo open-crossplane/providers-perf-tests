@@ -226,8 +226,6 @@ run_tests prov iter='1':
          --provider-namespace upbound-system \
          --node "$node_ip":9100 \
          --step-duration 1s |& tee {{raw_data}}/{{file_prefix}}-{{prov}}-$active_provider_version-{{iter}}.txt
-  echo "Getting provider pod processes"
-  kubectl -n upbound-system exec -i "$pod" -- ps -o pid,ppid,etime,comm,args > {{raw_data}}/{{file_prefix}}-{{prov}}-{{iter}}-ps.log
 
 # create arbitra# Run tests and export metrics
 run_tests_and_export_metrics prov iter='1':

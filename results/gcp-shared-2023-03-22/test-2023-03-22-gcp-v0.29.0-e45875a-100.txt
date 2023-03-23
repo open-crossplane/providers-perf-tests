@@ -1,0 +1,2 @@
+test-2023-03-22-gcp-v0.29.0-e45875a-100; Experiment Duration;Average Time to Readiness of Bucket;Peak Time to Readiness of Bucket;Average Memory;Peak Memory  ;Average CPU;Peak CPU
+test-2023-03-22-gcp-v0.29.0-e45875a-100;  957.32            ; 686.03                            ; 850.00                         ; 515083575.83 ; 932487168.00; 9.53      ; 37.52

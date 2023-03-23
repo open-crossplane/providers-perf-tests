@@ -1,0 +1,2 @@
+test-gcp-500; Experiment Duration;Average Time to Readiness of Bucket;Peak Time to Readiness of Bucket;Average Memory;Peak Memory   ;Average CPU;Peak CPU
+test-gcp-500;  3955.96           ; 3240.79                           ; 3322.00                        ; 818384437.04 ; 1252745216.00; 25.69     ; 98.34

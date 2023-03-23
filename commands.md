@@ -1,5 +1,6 @@
 Prepare files, run in order.
 
+
 1. Load all the files
 vim *.txt
 
@@ -28,4 +29,7 @@ compatible
 `fd --extension=txt | sort -V | xargs cat`
 
 8. Format columns
-`%s/ of Registry/ seconds /g | %s/CPU/CPU %/g`
+`%s/ of Registry\|of Bucket/ in seconds /g | %s/CPU/CPU %/g`
+
+9. Google docs Byte formatting
+`[<1000000]0.00," KB";[<1000000000]0.00,," MB";0.00,,," GB"`

@@ -1,4 +1,0 @@
-PID   PPID  ELAPSED COMMAND          COMMAND
-    1     0  6:52   provider         provider
- 1533     1  1:25   terraform-provi  /terraform/provider-mirror/registry.terraform.io/hashicorp/azurerm/3.41.0/linux_amd64/terraform-provider-azurerm_v3.41.0_x5
- 1643     0  0:01   ps               ps -o pid,ppid,etime,comm,args
