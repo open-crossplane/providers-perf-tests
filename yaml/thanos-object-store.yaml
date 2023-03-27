@@ -4,10 +4,10 @@
 # <your_aws_secret_key>: Your AWS secret key.
 type: S3
 config:
-  bucket: <your_s3_bucket_name>
-  endpoint: s3.<your_aws_region>.amazonaws.com
-  access_key: <your_aws_access_key>
-  secret_key: <your_aws_secret_key>
+  bucket: $thanos_bucket
+  endpoint: s3.$eks_region.amazonaws.com
+  access_key: $aws_access_key
+  secret_key: $aws_secret_key
   insecure: false
   signature_version2: false
   encrypt_sse: false

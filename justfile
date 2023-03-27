@@ -12,6 +12,11 @@ raw_data                            := justfile_directory() + "/raw-data"
 copy                                := if os() == "linux" { "xsel -ib"} else { "pbcopy" }
 browse                              := if os() == "linux" { "xdg-open "} else { "open" }
 
+# Thanos bucket variables
+thanos_bucket                       := "piotrprovidersperftest"
+aws_access_key                      := `echo -n $BUCKET_ACCESS_KEY_ID`
+aws_secret_key                      := `echo -n $BUCKET_SECRET_ACCESS_KEY`
+
 # Provider related variables
 gcp_provider_version                := "v0.29.0" # "v0.29.0-e45875a"
 gcp_provider_image                  := "xpkg.upbound.io/upbound/provider-gcp:" # "ulucinar/provider-gcp-amd64:"
@@ -34,6 +39,10 @@ node                                := "m5.2xlarge"
 # this list of available targets
 default:
   @just --list --unsorted
+
+testme:
+  @echo {{aws_access_key}}
+  @echo {{aws_secret_key}}
 
 # BASE INFRA SETUP {{{
 # * entry setup recepie, possible values: base (defult), azure, aws, gcp, all
@@ -109,15 +118,13 @@ deploy_monitoring:
 
 # create thanos objstore secret
 create_thanos_objstore_secret:
-  @kubectl create namespace prometheus --dry-run=client -o yaml | kubectl apply -f -
-  @kubectl create secret generic thanos-objstore-config --namespace=prometheus \
-    --from-file=objstore.yaml=<path_to_objstore_yaml> --dry-run=client -o yaml | kubectl apply -f -
+  @envsubst < {{yaml}}/thanos-object-store.yaml | kubectl create secret generic thanos-objstore-config --namespace=prometheus --from-file=objstore.yaml=/dev/stdin --dry-run=client -o yaml | kubectl apply -f -
 
 # deploy thanos
 deploy_thanos:
-  @helm repo add thanos https://thanos-io.github.io/thanos-chart
+  @helm repo add bitnami https://charts.bitnami.com/bitnami
   just update_helm
-  @helm install thanos thanos/thanos \
+  @helm install thanos bitnami/thanos \
    --create-namespace \
    --namespace prometheus \
    --set objstoreConfig.secretName=thanos-objstore-config \
@@ -125,18 +132,19 @@ deploy_thanos:
 
 # Export Thanos metrics
 export_metrics:
+  #!/usr/bin/env bash
   @echo "Ensure you have kubectl port-forward running for Thanos Query and Thanos Store Gateway"
   # Get the current date, provider name, and version
   current_date = `date +%F`
-  active_provider_version = `echo $ACTIVE_PROVIDER_VERSION`
-  provider_name = `echo $PROVIDER_NAME`
+  active_provider_version = `echo testversion`
+  provider_name = `echo testprovider`
 
   # Create the S3 folder path
-  s3_folder = "s3://your-s3-bucket/metrics/${current_date}/${provider_name}/${active_provider_version}"
+  s3_folder = "s3://{{thanos_bucket}}/metrics/${current_date}/${provider_name}/${active_provider_version}"
 
   # Run the thanos tools bucket web command
   @docker run -it --rm \
-    -v $PWD/objstore.yaml:/etc/thanos/objstore.yaml:ro \
+    -v {{yaml}}/objstore.yaml:/etc/thanos/objstore.yaml:ro \
     quay.io/thanos/thanos:v0.23.1 \
     tools bucket web \
     --listen ":8080" \
