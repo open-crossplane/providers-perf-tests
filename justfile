@@ -219,7 +219,6 @@ run_tests prov iter='1':
   pod="${pod##*/}"
   node_ip=$(kubectl get nodes -o wide | awk ' FNR == 2 {print $6}')
   active_provider_version=$(printenv | grep {{prov}}_provider_version | awk -F '=' '{print $2}')
-
   cd {{uptest}} && go run {{uptest}}/cmd/perf/main.go \
          --mrs {{yaml}}/test-resource-{{prov}}.yaml={{iter}} \
          --provider-pod "$pod" \
@@ -240,11 +239,6 @@ run_tests_azure:
   @just run_tests azure 10
   @just run_tests azure 50
   @just run_tests azure 100
-
-# create arbitra# Run tests and export metrics
-run_tests_and_export_metrics prov iter='1':
-  @just run_tests {{prov}} {{iter}}
-  @just export_metricsry number of test resource
 
 create_test_resource iter='2':
   #!/usr/bin/env bash
