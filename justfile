@@ -23,8 +23,8 @@ gcp_provider_image                  := "xpkg.upbound.io/upbound/provider-gcp:" #
 gcp_project_id                      := "squad-platform-playground"
 base64encoded_gcp_creds             := `base64 $GCP_PROVIDER_CREDS | tr -d "\n"` # Variable containing path to a file with credentials for GCP provider
 
-azure_provider_version              := "d0932e28" # env_var_or_default('AZURE_PROVIDER', "v0.28.0")
-azure_provider_image                := "ulucinar/provider-azure-amd64:" # "xpkg.upbound.io/upbound/provider-azure:"
+azure_provider_version              := env_var_or_default('AZURE_PROVIDER', "v0.29.0") # "d0932e28" 
+azure_provider_image                := "xpkg.upbound.io/upbound/provider-azure:" #"ulucinar/provider-azure-amd64:"
 base64encoded_azure_creds           := `base64 $AZURE_PROVIDER_CREDS | tr -d "\n"` # Variable containing path to a file with credentials for AZURE provider
 
 # Other variables
@@ -109,12 +109,16 @@ deploy_resource_group op='apply':
 deploy_monitoring:
   @helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
   just update_helm
-  @helm install kube-prometheus-stack  prometheus-community/kube-prometheus-stack -n prometheus \
-   --set namespaceOverride=prometheus \
-   --set grafana.namespaceOverride=prometheus \
-   --set grafana.defaultDashboardsEnabled=true \
-   --set kube-state-metrics.namespaceOverride=prometheus \
-   --set prometheus-node-exporter.namespaceOverride=prometheus --create-namespace
+  @helm upgrade kube-prometheus-stack  prometheus-community/kube-prometheus-stack -n prometheus \
+    --set namespaceOverride=prometheus \
+    --set grafana.namespaceOverride=prometheus \
+    --set grafana.defaultDashboardsEnabled=true \
+    --set kube-state-metrics.namespaceOverride=prometheus \
+    --set prometheus-node-exporter.namespaceOverride=prometheus \
+    --set prometheus.prometheusSpec.thanos.version=12.4.0 \
+    --set prometheus.prometheusSpec.thanos.objectStorageConfig.key=objectstore.yaml \
+    --set prometheus.prometheusSpec.thanos.objectStorageConfig.name=thanos-objectstorage \
+    --create-namespace
 
 # create thanos objstore secret
 create_thanos_objstore_secret:

@@ -1,7 +1,0 @@
-test-azure-50; Experiment Duration: 328.00
-test-azure-50; Average Time to Readiness of Registry: 114.00
-test-azure-50; Peak Time to Readiness of Registry: 175.00
-test-azure-50; Average Memory: 929.93M
-test-azure-50; Peak Memory: 2.21G
-test-azure-50; Average CPU: 20.00
-test-azure-50; Peak CPU: 33.00

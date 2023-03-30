@@ -1,7 +1,0 @@
-Experiment Duration: 122.306499
-Average Time to Readiness of Bucket: 65.000000
-Peak Time to Readiness of Bucket: 65.000000
-Average Memory: 157100938.491803
-Peak Memory: 185782272.000000
-Average CPU: 1.573900
-Peak CPU: 1.806944
