@@ -220,44 +220,6 @@ evaluate the performance of the Crossplane provider.
 
 ## Formatting output and interpreting tests results
 
-The formatting commands provided below are useful for cleaning up and organizing
-the output data from the performance tests. Using these commands in Vim, you can
-remove unnecessary lines, format values, transpose data, and combine results to
-make the output easier to read and analyze.
+To format all the raw output files into a CSV, run:
 
-By following the instructions and running the provided commands in Vim, you can
-transform raw performance test output into a clean, columnar layout that is
-CSV-compatible. This makes it easier to analyze, compare, and share the
-performance test results. Prepare files, run in order.
-
-1. Load all the files
-   vim \*.txt
-
-1. Remove unused stuff. The macro under q is already present and removes until
-   Experiment Duraition line
-
-```bash
-bufdo normal@q w
-bufdo :%s/^.*msg="\(.*\) \([0-9.]\+\).*$/\1 \2/g
-```
-
-1. Format values output
-   `bufdo :%s/[0-9.]\+/\=system('numfmt --to=si --format %.2f', submatch(0))`
-
-1. Transpose data to columnar layout with ; separator to make the file CSV
-   compatible
-   `bufdo :%d|:r! bash -c "datamash -t: transpose <% | column -t -s: --output-separator=';'"`
-
-1. Delete top empty line
-   `bufdo :g/^$/d`
-
-1. Add file name to first column
-   `bufdo :%s/\v^/\=expand("%:t:r") .expand("; ")/g`
-
-1. Combine results
-   <!-- `fd --extension=txt | sort -V | xargs tail -n +1 | sed 's#> ./#> #g'` -->
-
-   `fd --extension=txt | sort -V | xargs cat`
-
-1. Format columns
-   `%s/ of Registry/ seconds /g | %s/CPU/CPU %/g`
+`./scripts/format_data.py`
