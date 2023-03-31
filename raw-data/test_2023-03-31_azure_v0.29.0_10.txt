@@ -1,0 +1,43 @@
+time="2023-03-31T10:40:03+02:00" level=info msg="Experiment Started 2023-03-31 10:40:03.206417211 +0200 CEST m=+0.011824289\n\n"
+time="2023-03-31T10:40:03+02:00" level=info msg="Registry/testperf1231 was successfully created!\n"
+time="2023-03-31T10:40:03+02:00" level=info msg="Registry/testperf1232 was successfully created!\n"
+time="2023-03-31T10:40:03+02:00" level=info msg="Registry/testperf1233 was successfully created!\n"
+time="2023-03-31T10:40:03+02:00" level=info msg="Registry/testperf1234 was successfully created!\n"
+time="2023-03-31T10:40:03+02:00" level=info msg="Registry/testperf1235 was successfully created!\n"
+time="2023-03-31T10:40:03+02:00" level=info msg="Registry/testperf1236 was successfully created!\n"
+time="2023-03-31T10:40:03+02:00" level=info msg="Registry/testperf1237 was successfully created!\n"
+time="2023-03-31T10:40:03+02:00" level=info msg="Registry/testperf1238 was successfully created!\n"
+time="2023-03-31T10:40:03+02:00" level=info msg="Registry/testperf1239 was successfully created!\n"
+time="2023-03-31T10:40:03+02:00" level=info msg="Registry/testperf12310 was successfully created!\n"
+registry.containerregistry.azure.upbound.io/testperf1231 created
+registry.containerregistry.azure.upbound.io/testperf1232 created
+registry.containerregistry.azure.upbound.io/testperf1233 created
+registry.containerregistry.azure.upbound.io/testperf1234 created
+registry.containerregistry.azure.upbound.io/testperf1235 created
+registry.containerregistry.azure.upbound.io/testperf1236 created
+registry.containerregistry.azure.upbound.io/testperf1237 created
+registry.containerregistry.azure.upbound.io/testperf1238 created
+registry.containerregistry.azure.upbound.io/testperf1239 created
+registry.containerregistry.azure.upbound.io/testperf12310 created
+time="2023-03-31T10:40:04+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T10:40:15+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T10:40:25+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T10:40:35+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T10:40:45+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T10:40:55+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T10:40:55+02:00" level=info msg="Calculating readiness time of resources..."
+time="2023-03-31T10:40:55+02:00" level=info msg="Deleting resources..."
+time="2023-03-31T10:40:55+02:00" level=info msg="Checking deletion of resources..."
+time="2023-03-31T10:40:55+02:00" level=info msg="Checking deletion of resources..."
+time="2023-03-31T10:41:06+02:00" level=info msg="Checking deletion of resources..."
+time="2023-03-31T10:41:16+02:00" level=info msg="Checking deletion of resources..."
+time="2023-03-31T10:41:26+02:00" level=info msg="Checking deletion of resources..."
+time="2023-03-31T10:41:26+02:00" level=info msg="\nExperiment Ended 2023-03-31 10:41:26.058520853 +0200 CEST m=+82.863927927\n\n"
+time="2023-03-31T10:41:26+02:00" level=info msg="Results\n------------------------------------------------------------\n"
+time="2023-03-31T10:41:26+02:00" level=info msg="Experiment Duration: 82.852104 seconds\n"
+time="2023-03-31T10:42:26+02:00" level=info msg="Average Time to Readiness of Registry: 41.900000 seconds \n"
+time="2023-03-31T10:42:26+02:00" level=info msg="Peak Time to Readiness of Registry: 45.000000 seconds \n"
+time="2023-03-31T10:42:26+02:00" level=info msg="Average Memory: 575714511.664336 Bytes \n"
+time="2023-03-31T10:42:26+02:00" level=info msg="Peak Memory: 972935168.000000 Bytes \n"
+time="2023-03-31T10:42:26+02:00" level=info msg="Average CPU: 4.143951 Rate \n"
+time="2023-03-31T10:42:26+02:00" level=info msg="Peak CPU: 8.051620 Rate \n"

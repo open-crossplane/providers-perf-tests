@@ -1,0 +1,138 @@
+time="2023-03-31T12:26:27+02:00" level=info msg="Experiment Started 2023-03-31 12:26:27.721701039 +0200 CEST m=+0.012621098\n\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf1231 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf1232 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf1233 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf1234 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf1235 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf1236 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf1237 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf1238 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf1239 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12310 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12311 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12312 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12313 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12314 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12315 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12316 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12317 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12318 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12319 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12320 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12321 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12322 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12323 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12324 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12325 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12326 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12327 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12328 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12329 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12330 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12331 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12332 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12333 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12334 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12335 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12336 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12337 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12338 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12339 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12340 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12341 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12342 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12343 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12344 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12345 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12346 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12347 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12348 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12349 was successfully created!\n"
+time="2023-03-31T12:26:27+02:00" level=info msg="Registry/testperf12350 was successfully created!\n"
+registry.containerregistry.azure.upbound.io/testperf1231 created
+registry.containerregistry.azure.upbound.io/testperf1232 created
+registry.containerregistry.azure.upbound.io/testperf1233 created
+registry.containerregistry.azure.upbound.io/testperf1234 created
+registry.containerregistry.azure.upbound.io/testperf1235 created
+registry.containerregistry.azure.upbound.io/testperf1236 created
+registry.containerregistry.azure.upbound.io/testperf1237 created
+registry.containerregistry.azure.upbound.io/testperf1238 created
+registry.containerregistry.azure.upbound.io/testperf1239 created
+registry.containerregistry.azure.upbound.io/testperf12310 created
+registry.containerregistry.azure.upbound.io/testperf12311 created
+registry.containerregistry.azure.upbound.io/testperf12312 created
+registry.containerregistry.azure.upbound.io/testperf12313 created
+registry.containerregistry.azure.upbound.io/testperf12314 created
+registry.containerregistry.azure.upbound.io/testperf12315 created
+registry.containerregistry.azure.upbound.io/testperf12316 created
+registry.containerregistry.azure.upbound.io/testperf12317 created
+registry.containerregistry.azure.upbound.io/testperf12318 created
+registry.containerregistry.azure.upbound.io/testperf12319 created
+registry.containerregistry.azure.upbound.io/testperf12320 created
+registry.containerregistry.azure.upbound.io/testperf12321 created
+registry.containerregistry.azure.upbound.io/testperf12322 created
+registry.containerregistry.azure.upbound.io/testperf12323 created
+registry.containerregistry.azure.upbound.io/testperf12324 created
+registry.containerregistry.azure.upbound.io/testperf12325 created
+registry.containerregistry.azure.upbound.io/testperf12326 created
+registry.containerregistry.azure.upbound.io/testperf12327 created
+registry.containerregistry.azure.upbound.io/testperf12328 created
+registry.containerregistry.azure.upbound.io/testperf12329 created
+registry.containerregistry.azure.upbound.io/testperf12330 created
+registry.containerregistry.azure.upbound.io/testperf12331 created
+registry.containerregistry.azure.upbound.io/testperf12332 created
+registry.containerregistry.azure.upbound.io/testperf12333 created
+registry.containerregistry.azure.upbound.io/testperf12334 created
+registry.containerregistry.azure.upbound.io/testperf12335 created
+registry.containerregistry.azure.upbound.io/testperf12336 created
+registry.containerregistry.azure.upbound.io/testperf12337 created
+registry.containerregistry.azure.upbound.io/testperf12338 created
+registry.containerregistry.azure.upbound.io/testperf12339 created
+registry.containerregistry.azure.upbound.io/testperf12340 created
+registry.containerregistry.azure.upbound.io/testperf12341 created
+registry.containerregistry.azure.upbound.io/testperf12342 created
+registry.containerregistry.azure.upbound.io/testperf12343 created
+registry.containerregistry.azure.upbound.io/testperf12344 created
+registry.containerregistry.azure.upbound.io/testperf12345 created
+registry.containerregistry.azure.upbound.io/testperf12346 created
+registry.containerregistry.azure.upbound.io/testperf12347 created
+registry.containerregistry.azure.upbound.io/testperf12348 created
+registry.containerregistry.azure.upbound.io/testperf12349 created
+registry.containerregistry.azure.upbound.io/testperf12350 created
+time="2023-03-31T12:26:31+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T12:26:42+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T12:26:52+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T12:27:02+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T12:27:12+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T12:27:22+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T12:27:32+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T12:27:42+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T12:27:52+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T12:28:02+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T12:28:12+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T12:28:22+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T12:28:32+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T12:28:43+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T12:28:53+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T12:29:03+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T12:29:13+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T12:29:23+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T12:29:23+02:00" level=info msg="Calculating readiness time of resources..."
+time="2023-03-31T12:29:23+02:00" level=info msg="Deleting resources..."
+time="2023-03-31T12:29:23+02:00" level=info msg="Checking deletion of resources..."
+time="2023-03-31T12:29:23+02:00" level=info msg="Checking deletion of resources..."
+time="2023-03-31T12:29:33+02:00" level=info msg="Checking deletion of resources..."
+time="2023-03-31T12:29:44+02:00" level=info msg="Checking deletion of resources..."
+time="2023-03-31T12:29:54+02:00" level=info msg="Checking deletion of resources..."
+time="2023-03-31T12:30:04+02:00" level=info msg="Checking deletion of resources..."
+time="2023-03-31T12:30:14+02:00" level=info msg="Checking deletion of resources..."
+time="2023-03-31T12:30:24+02:00" level=info msg="Checking deletion of resources..."
+time="2023-03-31T12:30:24+02:00" level=info msg="\nExperiment Ended 2023-03-31 12:30:24.246843686 +0200 CEST m=+236.537763817\n\n"
+time="2023-03-31T12:30:24+02:00" level=info msg="Results\n------------------------------------------------------------\n"
+time="2023-03-31T12:30:24+02:00" level=info msg="Experiment Duration: 236.525143 seconds\n"
+time="2023-03-31T12:31:24+02:00" level=info msg="Average Time to Readiness of Registry: 107.460000 seconds \n"
+time="2023-03-31T12:31:24+02:00" level=info msg="Peak Time to Readiness of Registry: 168.000000 seconds \n"
+time="2023-03-31T12:31:24+02:00" level=info msg="Average Memory: 895949344.754209 Bytes \n"
+time="2023-03-31T12:31:24+02:00" level=info msg="Peak Memory: 1966489600.000000 Bytes \n"
+time="2023-03-31T12:31:24+02:00" level=info msg="Average CPU: 11.237091 Rate \n"
+time="2023-03-31T12:31:24+02:00" level=info msg="Peak CPU: 19.604167 Rate \n"

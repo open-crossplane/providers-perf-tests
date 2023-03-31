@@ -18,23 +18,27 @@ aws_access_key                      := `echo -n $BUCKET_ACCESS_KEY_ID`
 aws_secret_key                      := `echo -n $BUCKET_SECRET_ACCESS_KEY`
 
 # Provider related variables
-gcp_provider_version                := "v0.29.0" # "v0.29.0-e45875a"
-gcp_provider_image                  := "xpkg.upbound.io/upbound/provider-gcp:" # "ulucinar/provider-gcp-amd64:"
+# gcp_provider_version                := "v0.29.0" 
+gcp_provider_version                := "v0.30.0-62a5320"
+# gcp_provider_image                  := "xpkg.upbound.io/upbound/provider-gcp:" 
+gcp_provider_image                  :=  "ulucinar/provider-gcp-amd64:"
 gcp_project_id                      := "squad-platform-playground"
 base64encoded_gcp_creds             := `base64 $GCP_PROVIDER_CREDS | tr -d "\n"` # Variable containing path to a file with credentials for GCP provider
 
-azure_provider_version              := env_var_or_default('AZURE_PROVIDER', "v0.29.0") # "d0932e28" 
-azure_provider_image                := "xpkg.upbound.io/upbound/provider-azure:" #"ulucinar/provider-azure-amd64:"
+# azure_provider_version              := "v0.29.0"
+# azure_provider_image                := "xpkg.upbound.io/upbound/provider-azure:" 
+azure_provider_version              := "v0.30.0-faff84353" 
+azure_provider_image                := "ulucinar/provider-azure-amd64:"
 base64encoded_azure_creds           := `base64 $AZURE_PROVIDER_CREDS | tr -d "\n"` # Variable containing path to a file with credentials for AZURE provider
 
 # Other variables
-file_prefix                         := `echo test-$(date +%F)`
+file_prefix                         := `echo test_$(date +%F)`
 cluster_name                        := "piotr-perf-test"
 eks_region                          := "eu-central-1"
 user_id                             := `aws sts get-caller-identity | grep -i userid | awk -F ':' '{print $3}' | cut -d '"' -f1`
 random_suffix                       := `echo $RANDOM`
 context                             := user_id+"@"+cluster_name+"."+eks_region+".eksctl.io"
-node                                := "m5.2xlarge"
+node                                := "c5.4xlarge"
 
 # this list of available targets
 default:
@@ -88,12 +92,13 @@ remove_gcp_provider:
   @envsubst < {{yaml}}/gcp-provider.yaml | kubectl delete -f - 
   @envsubst < {{yaml}}/gcp-provider-config.yaml | kubectl delete -f - 
 
-# setup Azure official provider
+# setup Azure official provider and make sure test resource group is created
 deploy_azure_provider:
   @echo "Setting up Azure official provider"
   @envsubst < {{yaml}}/azure-provider.yaml | kubectl apply -f - 
   @kubectl wait --for condition=healthy --timeout=300s provider/provider-azure
   @envsubst < {{yaml}}/azure-provider-config.yaml | kubectl apply -f - 
+  @just deploy_resource_group
 
 # remove Azure official provider
 remove_azure_provider:
@@ -109,16 +114,12 @@ deploy_resource_group op='apply':
 deploy_monitoring:
   @helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
   just update_helm
-  @helm upgrade kube-prometheus-stack  prometheus-community/kube-prometheus-stack -n prometheus \
-    --set namespaceOverride=prometheus \
-    --set grafana.namespaceOverride=prometheus \
-    --set grafana.defaultDashboardsEnabled=true \
-    --set kube-state-metrics.namespaceOverride=prometheus \
-    --set prometheus-node-exporter.namespaceOverride=prometheus \
-    --set prometheus.prometheusSpec.thanos.version=12.4.0 \
-    --set prometheus.prometheusSpec.thanos.objectStorageConfig.key=objectstore.yaml \
-    --set prometheus.prometheusSpec.thanos.objectStorageConfig.name=thanos-objectstorage \
-    --create-namespace
+  @helm install kube-prometheus-stack  prometheus-community/kube-prometheus-stack -n prometheus \
+   --set namespaceOverride=prometheus \
+   --set grafana.namespaceOverride=prometheus \
+   --set grafana.defaultDashboardsEnabled=true \
+   --set kube-state-metrics.namespaceOverride=prometheus \
+   --set prometheus-node-exporter.namespaceOverride=prometheus --create-namespace
 
 # create thanos objstore secret
 create_thanos_objstore_secret:
@@ -217,7 +218,7 @@ delete_bucket:
   @echo "Delete sample bucket if present"
   @envsubst < {{yaml}}/bucket.yaml | kubectl delete --ignore-not-found -f - 
 ### }}}
-
+  
 # RUN TESTS {{{
 # run tests and collect metrics
 run_tests prov iter='1':
@@ -236,7 +237,7 @@ run_tests prov iter='1':
          --provider-pod "$pod" \
          --provider-namespace upbound-system \
          --node "$node_ip":9100 \
-         --step-duration 1s |& tee {{raw_data}}/{{file_prefix}}-{{prov}}-$active_provider_version-{{iter}}.txt
+         --step-duration 1s |& tee {{raw_data}}/{{file_prefix}}_{{prov}}_"$active_provider_version"_{{iter}}.txt
 
 # run all tests for provider GCP
 run_tests_gcp:

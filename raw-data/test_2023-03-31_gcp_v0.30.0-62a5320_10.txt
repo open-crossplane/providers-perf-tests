@@ -1,0 +1,46 @@
+time="2023-03-31T13:58:25+02:00" level=info msg="Experiment Started 2023-03-31 13:58:25.520619415 +0200 CEST m=+0.011989951\n\n"
+time="2023-03-31T13:58:25+02:00" level=info msg="Bucket/testperf1231 was successfully created!\n"
+time="2023-03-31T13:58:25+02:00" level=info msg="Bucket/testperf1232 was successfully created!\n"
+time="2023-03-31T13:58:25+02:00" level=info msg="Bucket/testperf1233 was successfully created!\n"
+time="2023-03-31T13:58:25+02:00" level=info msg="Bucket/testperf1234 was successfully created!\n"
+time="2023-03-31T13:58:25+02:00" level=info msg="Bucket/testperf1235 was successfully created!\n"
+time="2023-03-31T13:58:25+02:00" level=info msg="Bucket/testperf1236 was successfully created!\n"
+time="2023-03-31T13:58:25+02:00" level=info msg="Bucket/testperf1237 was successfully created!\n"
+time="2023-03-31T13:58:25+02:00" level=info msg="Bucket/testperf1238 was successfully created!\n"
+time="2023-03-31T13:58:25+02:00" level=info msg="Bucket/testperf1239 was successfully created!\n"
+time="2023-03-31T13:58:25+02:00" level=info msg="Bucket/testperf12310 was successfully created!\n"
+bucket.storage.gcp.upbound.io/testperf1231 created
+bucket.storage.gcp.upbound.io/testperf1232 created
+bucket.storage.gcp.upbound.io/testperf1233 created
+bucket.storage.gcp.upbound.io/testperf1234 created
+bucket.storage.gcp.upbound.io/testperf1235 created
+bucket.storage.gcp.upbound.io/testperf1236 created
+bucket.storage.gcp.upbound.io/testperf1237 created
+bucket.storage.gcp.upbound.io/testperf1238 created
+bucket.storage.gcp.upbound.io/testperf1239 created
+bucket.storage.gcp.upbound.io/testperf12310 created
+time="2023-03-31T13:58:27+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T13:58:37+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T13:58:47+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T13:58:57+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T13:59:07+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T13:59:17+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T13:59:27+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T13:59:37+02:00" level=info msg="Checking readiness of resources..."
+time="2023-03-31T13:59:37+02:00" level=info msg="Calculating readiness time of resources..."
+time="2023-03-31T13:59:37+02:00" level=info msg="Deleting resources..."
+time="2023-03-31T13:59:38+02:00" level=info msg="Checking deletion of resources..."
+time="2023-03-31T13:59:38+02:00" level=info msg="Checking deletion of resources..."
+time="2023-03-31T13:59:48+02:00" level=info msg="Checking deletion of resources..."
+time="2023-03-31T13:59:58+02:00" level=info msg="Checking deletion of resources..."
+time="2023-03-31T14:00:08+02:00" level=info msg="Checking deletion of resources..."
+time="2023-03-31T14:00:18+02:00" level=info msg="Checking deletion of resources..."
+time="2023-03-31T14:00:18+02:00" level=info msg="\nExperiment Ended 2023-03-31 14:00:18.317592734 +0200 CEST m=+112.808963322\n\n"
+time="2023-03-31T14:00:18+02:00" level=info msg="Results\n------------------------------------------------------------\n"
+time="2023-03-31T14:00:18+02:00" level=info msg="Experiment Duration: 112.796973 seconds\n"
+time="2023-03-31T14:01:18+02:00" level=info msg="Average Time to Readiness of Bucket: 65.600000 seconds \n"
+time="2023-03-31T14:01:18+02:00" level=info msg="Peak Time to Readiness of Bucket: 66.000000 seconds \n"
+time="2023-03-31T14:01:18+02:00" level=info msg="Average Memory: 316330102.381503 Bytes \n"
+time="2023-03-31T14:01:18+02:00" level=info msg="Peak Memory: 557903872.000000 Bytes \n"
+time="2023-03-31T14:01:18+02:00" level=info msg="Average CPU: 2.459032 Rate \n"
+time="2023-03-31T14:01:18+02:00" level=info msg="Peak CPU: 4.415278 Rate \n"
