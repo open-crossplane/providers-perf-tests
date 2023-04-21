@@ -114,54 +114,20 @@ deploy_resource_group op='apply':
 deploy_monitoring:
   @helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
   just update_helm
-  @helm install kube-prometheus-stack  prometheus-community/kube-prometheus-stack -n prometheus \
+  @helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack -n prometheus \
    --set namespaceOverride=prometheus \
    --set grafana.namespaceOverride=prometheus \
    --set grafana.defaultDashboardsEnabled=true \
    --set kube-state-metrics.namespaceOverride=prometheus \
    --set prometheus-node-exporter.namespaceOverride=prometheus --create-namespace
-
-# create thanos objstore secret
-create_thanos_objstore_secret:
-  @envsubst < {{yaml}}/thanos-object-store.yaml | kubectl create secret generic thanos-objstore-config --namespace=prometheus --from-file=objstore.yaml=/dev/stdin --dry-run=client -o yaml | kubectl apply -f -
-
-# deploy thanos
-deploy_thanos:
-  @helm repo add bitnami https://charts.bitnami.com/bitnami
-  just update_helm
-  @helm install thanos bitnami/thanos \
-   --create-namespace \
-   --namespace prometheus \
-   --set objstoreConfig.secretName=thanos-objstore-config \
-   --set objstoreConfig.secretKey=objstore.yaml
-
-# Export Thanos metrics
-export_metrics:
-  #!/usr/bin/env bash
-  @echo "Ensure you have kubectl port-forward running for Thanos Query and Thanos Store Gateway"
-  # Get the current date, provider name, and version
-  current_date = `date +%F`
-  active_provider_version = `echo testversion`
-  provider_name = `echo testprovider`
-
-  # Create the S3 folder path
-  s3_folder = "s3://{{thanos_bucket}}/metrics/${current_date}/${provider_name}/${active_provider_version}"
-
-  # Run the thanos tools bucket web command
-  @docker run -it --rm \
-    -v {{yaml}}/objstore.yaml:/etc/thanos/objstore.yaml:ro \
-    quay.io/thanos/thanos:v0.23.1 \
-    tools bucket web \
-    --listen ":8080" \
-    --objstore.config-file "/etc/thanos/objstore.yaml" \
-    --web.external-prefix="${s3_folder}"
-
-  # Forward port 8080 to access Thanos tools bucket web UI
-  @echo "You can now access Thanos tools bucket web UI at http://localhost:8080"
-  @kubectl port-forward svc/thanos-query -n prometheus 8080:8080
+  just _enable_prometheus_admin_api
 # }}}
 
 # HELPER RECEPIES {{{
+# enable prometheus admin api
+_enable_prometheus_admin_api:
+  @kubectl -n prometheus patch prometheus kube-prometheus-stack-prometheus --type merge --patch '{"spec":{"enableAdminAPI":true}}'
+
 # get caller identity for cluster name
 get_aws_user_id:
   @aws sts get-caller-identity | grep -i userid | awk -F ':' '{print $3}' | cut -d '"' -f1
@@ -199,6 +165,10 @@ copy_prometheus_url:
   #!/usr/bin/env bash
   ip=$(kubectl get svc -n prometheus kube-prometheus-stack-prometheus -o jsonpath='{.spec.clusterIP}')
   echo http://"$ip":9090 | {{copy}}
+
+# upload Prometheus metrics to S3
+upload_prometheus_metrics:
+  ./scripts/uploader.sh
 
 # update helm repos
 update_helm:

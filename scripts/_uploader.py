@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import os
-import json
 import time
+import json
 from datetime import datetime
 import boto3
 import requests
@@ -13,7 +13,7 @@ PROMETHEUS_POD_LABEL = "app.kubernetes.io/name=prometheus"
 S3_BUCKET = "piotrprovidersperftest"
 S3_FOLDER = "prometheus-metrics"
 TIMESTAMP = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-OUTPUT_FILE = f"prometheus-metrics-{TIMESTAMP}.txt"
+OUTPUT_FILE = f"prometheus-metrics-{TIMESTAMP}.json"
 
 # Load kubeconfig and get the Prometheus pod name
 config.load_kube_config()
@@ -32,13 +32,19 @@ os.system(port_forward_command)
 # Wait for port-forwarding to establish
 time.sleep(5)
 
-# Download metrics from Prometheus API
-response = requests.get("http://localhost:9090/api/v1/targets?state=active")
-metrics = response.json()
+# Get the list of all metric names
+response = requests.get("http://localhost:9090/api/v1/query", params={"query": 'count({__name__=~".+"}) by (__name__)'})
+metric_names = [result["metric"]["__name__"] for result in response.json()["data"]["result"]]
+
+# Download all metrics with their labels
+all_metrics = []
+for metric_name in metric_names:
+    response = requests.get("http://localhost:9090/api/v1/query", params={"query": metric_name})
+    all_metrics.extend(response.json()["data"]["result"])
 
 # Save metrics to a file
 with open(OUTPUT_FILE, "w") as f:
-    json.dump(metrics, f)
+    json.dump(all_metrics, f)
 
 # Upload the metrics to the S3 bucket
 s3 = boto3.client("s3")
@@ -49,4 +55,3 @@ os.system("pkill -f 'kubectl port-forward'")  # Stop the port-forward process
 os.remove(OUTPUT_FILE)
 
 print(f"Prometheus metrics downloaded and uploaded to s3://{S3_BUCKET}/{S3_FOLDER}/{OUTPUT_FILE}")
-
