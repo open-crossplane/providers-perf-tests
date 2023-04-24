@@ -12,11 +12,6 @@ raw_data                            := justfile_directory() + "/raw-data"
 copy                                := if os() == "linux" { "xsel -ib"} else { "pbcopy" }
 browse                              := if os() == "linux" { "xdg-open "} else { "open" }
 
-# Thanos bucket variables
-thanos_bucket                       := "piotrprovidersperftest"
-aws_access_key                      := `echo -n $BUCKET_ACCESS_KEY_ID`
-aws_secret_key                      := `echo -n $BUCKET_SECRET_ACCESS_KEY`
-
 # Provider related variables
 # gcp_provider_version                := "v0.29.0" 
 gcp_provider_version                := "v0.30.0-62a5320"
@@ -43,10 +38,6 @@ node                                := "c5.4xlarge"
 # this list of available targets
 default:
   @just --list --unsorted
-
-testme:
-  @echo {{aws_access_key}}
-  @echo {{aws_secret_key}}
 
 # BASE INFRA SETUP {{{
 # * entry setup recepie, possible values: base (defult), azure, aws, gcp, all
