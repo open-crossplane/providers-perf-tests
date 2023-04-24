@@ -42,3 +42,4 @@ kill "${PORT_FORWARD_PID}" # Stop the port-forward process
 rm -rf "${SNAPSHOT}" "${OUTPUT_FILE}"
 
 echo "Prometheus snapshot uploaded to s3://${S3_BUCKET}/${S3_FOLDER}/${OUTPUT_FILE}"
+echo "https://s3.console.aws.amazon.com/s3/object/${S3_BUCKET}/${S3_FOLDER}/${OUTPUT_FILE}"
