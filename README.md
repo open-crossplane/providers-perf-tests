@@ -1,14 +1,16 @@
 # Crossplane providers performance testing
 
-1. [Introduction](#introduction)
-2. [Prerequisites](#prerequisites)
-3. [It's like a Makefile _just_ better](#it's-like-a-makefile-_just_-better)
-4. [Envsubst](#envsubst)
-5. [Justfile overview](#justfile-overview)
-   - [Variables propagation](#variables-propagation)
-6. [Testing process](#testing-process)
-7. [Formatting output and interpreting tests results](#formatting-output-and-interpreting-tests-results)
-
+* [Introduction](#introduction)
+* [Prerequisites](#prerequisites)
+* [It's like a Makefile _just_ better](#it's-like-a-makefile-_just_-better)
+* [Envsubst](#envsubst)
+* [Justfile overview](#justfile-overview)
+  * [Variables propagation](#variables-propagation)
+  * [Autoload variables](#autoload-variables)
+* [Testing process](#testing-process)
+* [Formatting output and interpreting tests results](#formatting-output-and-interpreting-tests-results)
+* [Exporting prometheus metrics to S3 bucket](#exporting-prometheus-metrics-to-s3-bucket)
+ 
 ## Introduction
 
 Performance testing crossplane providers automation setup.
@@ -223,3 +225,8 @@ evaluate the performance of the Crossplane provider.
 To format all the raw output files into a CSV, run:
 
 `./scripts/format_data.py`
+
+## Exporting prometheus metrics to S3 bucket
+
+Prometheus database snapshot can be exported to an S3 bucket using the following
+script: `./scripts/uploader.sh`
