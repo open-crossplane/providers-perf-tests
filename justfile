@@ -19,6 +19,7 @@ gcp_provider_version                := "v0.30.0-62a5320"
 gcp_provider_image                  :=  "ulucinar/provider-gcp-amd64:"
 gcp_project_id                      := "squad-platform-playground"
 base64encoded_gcp_creds             := `base64 $GCP_PROVIDER_CREDS | tr -d "\n"` # Variable containing path to a file with credentials for GCP provider
+providerconfig_gcp_name             := "default"
 
 # azure_provider_version              := "v0.29.0"
 # azure_provider_image                := "xpkg.upbound.io/upbound/provider-azure:" 
@@ -55,7 +56,8 @@ setup_azure: setup_base deploy_azure_provider deploy_resource_group
 setup_gcp: setup_base deploy_gcp_provider
 
 # * setup gcp small providers
-setup_gcp_small: setup_base install_platform_ref_gcp
+setup_gcp_small: setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring install_platform_ref_gcp
+# setup_gcp_small: (deploy_uxp "unstable")
 
 # * setup aws
 setup_aws: setup_base
@@ -91,9 +93,14 @@ nuke_upbound_system:
   @kubectl delete namespace upbound-system
 
 # deploy platform-ref-gcp claim
-deploy_platform_ref_gcp_claim:
-  @echo "Deploying platform-ref-gcp claim"
-  @kubectl apply -f https://raw.githubusercontent.com/upbound/platform-ref-gcp/main/examples/cluster-claim.yaml
+deploy_platform_ref_gcp_claim op='apply':
+  @echo {{ if op == "apply" { "Deploying platform-ref-gcp claim" } else { "Removing platform-ref-gcp claim" } }}
+  @kubectl {{op}} -f https://raw.githubusercontent.com/upbound/platform-ref-gcp/main/examples/cluster-claim.yaml
+
+# deploy GCP small provider config
+deploy_gcp_small_provider_config:
+  @echo "Setting up ProviderConfig for GCP small providers"
+  @envsubst < {{yaml}}/gcp-provider-config.yaml | kubectl apply -f - 
 
 # deploy GCP official provider
 deploy_gcp_provider:

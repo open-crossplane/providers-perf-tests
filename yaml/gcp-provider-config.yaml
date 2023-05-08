@@ -11,7 +11,7 @@ data:
 apiVersion: gcp.upbound.io/v1beta1
 kind: ProviderConfig
 metadata:
-  name: provider-gcp
+  name: $providerconfig_gcp_name
 spec:
   projectID: $gcp_project_id
   credentials:
