@@ -64,11 +64,17 @@ setup_eks:
 
 # MANAGE PROVIDERS {{{
 # deploy uxp
-deploy_uxp:
-  @echo "Installing UXP"
-  @kubectl create namespace upbound-system
-  @up uxp install
+deploy_uxp version='stable' namespace='upbound-system':
+  @echo "Creating namespace {{namespace}}"
+  @kubectl create namespace {{namespace}} --dry-run=client -o yaml | kubectl apply -f -
+  @echo "Installing UXP with version {{version}}"
+  up {{ if version == "stable" { "uxp install -n upbound-system" } else { "uxp install v1.12.1-up.1.uprc.1 --unstable -n upbound-system" } }} 
   @kubectl wait --for condition=Available=True --timeout=300s deployment/crossplane --namespace upbound-system
+
+# remove uxp
+remove_uxp:
+  @echo "Removing UXP"
+  @up uxp uninstall 
 
 # deploy GCP official provider
 deploy_gcp_provider:
