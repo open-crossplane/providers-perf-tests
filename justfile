@@ -54,6 +54,9 @@ setup_azure: setup_base deploy_azure_provider deploy_resource_group
 # * setup gcp
 setup_gcp: setup_base deploy_gcp_provider
 
+# * setup gcp small providers
+setup_gcp_small: setup_base install_platform_ref_gcp
+
 # * setup aws
 setup_aws: setup_base
 
@@ -75,6 +78,22 @@ deploy_uxp version='stable' namespace='upbound-system':
 remove_uxp:
   @echo "Removing UXP"
   @up uxp uninstall 
+
+# install platform-ref GCP package
+install_platform_ref_gcp version='v0.1.0':
+  @echo "Deploying platform-ref GCP package"
+  @up ctp configuration install xpkg.upbound.io/upbound-release-candidates/platform-ref-gcp:{{version}}
+  @ kubectl wait --for condition=Healthy=True --timeout=300s configuration/upbound-release-candidates-platform-ref-gcp
+
+# nuke upbound-system namespace
+nuke_upbound_system:
+  @echo "Removing upbound-system namespace"
+  @kubectl delete namespace upbound-system
+
+# deploy platform-ref-gcp claim
+deploy_platform_ref_gcp_claim:
+  @echo "Deploying platform-ref-gcp claim"
+  @kubectl apply -f https://raw.githubusercontent.com/upbound/platform-ref-gcp/main/examples/cluster-claim.yaml
 
 # deploy GCP official provider
 deploy_gcp_provider:
