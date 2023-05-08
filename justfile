@@ -47,7 +47,7 @@ setup prov='base':
   @just setup_{{prov}}
 
 # * setup base infrastructure with cluster and observability
-setup_base: setup_eks get_kubeconfig deploy_uxp deploy_monitoring 
+setup_base: setup_eks get_kubeconfig (deploy_uxp "stable") deploy_monitoring 
 
 # * setup azure
 setup_azure: setup_base deploy_azure_provider deploy_resource_group
@@ -56,11 +56,13 @@ setup_azure: setup_base deploy_azure_provider deploy_resource_group
 setup_gcp: setup_base deploy_gcp_provider
 
 # * setup gcp small providers
-setup_gcp_small: setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring install_platform_ref_gcp
-# setup_gcp_small: (deploy_uxp "unstable")
+setup_gcp_small: setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "gcp")
 
-# * setup aws
-setup_aws: setup_base
+# * setup aws small providers
+setup_aws_small: setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "aws")
+
+# * setup azure small providers
+setup_azure_small: setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "azure")
 
 # setup eks cluster
 setup_eks: 
@@ -81,11 +83,15 @@ remove_uxp:
   @echo "Removing UXP"
   @up uxp uninstall 
 
+install_platform_ref_aws: (install_platform_ref "v0.1.0" "aws")
+install_platform_ref_gcp: (install_platform_ref "v0.1.0" "gcp")
+install_platform_ref_azure: (install_platform_ref "v0.1.0" "azure")
+
 # install platform-ref GCP package
-install_platform_ref_gcp version='v0.1.0':
-  @echo "Deploying platform-ref GCP package"
-  @up ctp configuration install xpkg.upbound.io/upbound-release-candidates/platform-ref-gcp:{{version}}
-  @ kubectl wait --for condition=Healthy=True --timeout=300s configuration/upbound-release-candidates-platform-ref-gcp
+install_platform_ref version='v0.1.0' cloud='gcp':
+  @echo "Deploying platform-ref {{cloud}} package"
+  @up ctp configuration install xpkg.upbound.io/upbound-release-candidates/platform-ref-{{cloud}}:{{version}}
+  @kubectl wait --for condition=Healthy=True --timeout=300s configuration/upbound-release-candidates-platform-ref-{{cloud}}
 
 # nuke upbound-system namespace
 nuke_upbound_system:
@@ -93,9 +99,9 @@ nuke_upbound_system:
   @kubectl delete namespace upbound-system
 
 # deploy platform-ref-gcp claim
-deploy_platform_ref_gcp_claim op='apply':
-  @echo {{ if op == "apply" { "Deploying platform-ref-gcp claim" } else { "Removing platform-ref-gcp claim" } }}
-  @kubectl {{op}} -f https://raw.githubusercontent.com/upbound/platform-ref-gcp/main/examples/cluster-claim.yaml
+deploy_platform_ref_cluster op='apply' cloud='gcp':
+  @echo {{ if op == "apply" { "Deploying platform-ref-{{cloud}} claim" } else { "Removing platform-ref-{{cloud}} claim" } }}
+  @kubectl {{op}} -f https://raw.githubusercontent.com/upbound/platform-ref-{{cloud}}/main/examples/cluster-claim.yaml
 
 # deploy GCP small provider config
 deploy_gcp_small_provider_config:
