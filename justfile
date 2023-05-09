@@ -19,12 +19,17 @@ gcp_provider_version                := "v0.30.0-62a5320"
 gcp_provider_image                  :=  "ulucinar/provider-gcp-amd64:"
 gcp_project_id                      := "squad-platform-playground"
 base64encoded_gcp_creds             := `base64 $GCP_PROVIDER_CREDS | tr -d "\n"` # Variable containing path to a file with credentials for GCP provider
+providerconfig_gcp_name             := "default"
 
 # azure_provider_version              := "v0.29.0"
 # azure_provider_image                := "xpkg.upbound.io/upbound/provider-azure:" 
 azure_provider_version              := "v0.30.0-faff84353" 
 azure_provider_image                := "ulucinar/provider-azure-amd64:"
 base64encoded_azure_creds           := `base64 $AZURE_PROVIDER_CREDS | tr -d "\n"` # Variable containing path to a file with credentials for AZURE provider
+providerconfig_azure_name           := "default"
+
+base64encoded_aws_creds             := `printf "[default]\n    aws_access_key_id = %s\n    aws_secret_access_key = %s" "${AWS_KEY_ID}" "${AWS_SECRET}" | base64 | tr -d "\n"`
+providerconfig_aws_name             := "default"
 
 # Other variables
 file_prefix                         := `echo test_$(date +%F)`
@@ -46,7 +51,7 @@ setup prov='base':
   @just setup_{{prov}}
 
 # * setup base infrastructure with cluster and observability
-setup_base: setup_eks get_kubeconfig deploy_uxp deploy_monitoring 
+setup_base: setup_eks get_kubeconfig (deploy_uxp "stable") deploy_monitoring 
 
 # * setup azure
 setup_azure: setup_base deploy_azure_provider deploy_resource_group
@@ -54,8 +59,14 @@ setup_azure: setup_base deploy_azure_provider deploy_resource_group
 # * setup gcp
 setup_gcp: setup_base deploy_gcp_provider
 
-# * setup aws
-setup_aws: setup_base
+# * setup gcp small providers setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "gcp")
+setup_gcp_small: setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "gcp")
+
+# * setup aws small providers setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "aws")
+setup_aws_small: setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "aws")
+
+# * setup azure small providers setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "azure")
+setup_azure_small: setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "azure")
 
 # setup eks cluster
 setup_eks: 
@@ -64,11 +75,47 @@ setup_eks:
 
 # MANAGE PROVIDERS {{{
 # deploy uxp
-deploy_uxp:
-  @echo "Installing UXP"
-  @kubectl create namespace upbound-system
-  @up uxp install
+deploy_uxp version='stable' namespace='upbound-system':
+  @echo "Creating namespace {{namespace}}"
+  @kubectl create namespace {{namespace}} --dry-run=client -o yaml | kubectl apply -f -
+  @echo "Installing UXP with version {{version}}"
+  up {{ if version == "stable" { "uxp install -n upbound-system" } else { "uxp install v1.12.1-up.1.uprc.1 --unstable -n upbound-system" } }} 
   @kubectl wait --for condition=Available=True --timeout=300s deployment/crossplane --namespace upbound-system
+
+# remove uxp
+remove_uxp:
+  @echo "Removing UXP"
+  @up uxp uninstall 
+
+# install_platform_ref_aws: (install_platform_ref "v0.1.0" "aws")
+install_platform_ref_aws: (install_platform_ref "v0.1.0" "aws")
+
+# install_platform_ref_gcp: (install_platform_ref "v0.1.0" "gcp")
+install_platform_ref_gcp: (install_platform_ref "v0.1.0" "gcp")
+
+# install_platform_ref_azure: (install_platform_ref "v0.1.0" "azure")
+install_platform_ref_azure: (install_platform_ref "v0.1.0" "azure")
+
+# install platform-ref GCP package
+install_platform_ref version='v0.1.0' cloud='gcp':
+  @echo "Deploying platform-ref {{cloud}} package"
+  @up ctp configuration install xpkg.upbound.io/upbound-release-candidates/platform-ref-{{cloud}}:{{version}}
+  @kubectl wait --for condition=Healthy=True --timeout=300s configuration/upbound-release-candidates-platform-ref-{{cloud}}
+
+# nuke upbound-system namespace
+nuke_upbound_system:
+  @echo "Removing upbound-system namespace"
+  @kubectl delete namespace upbound-system
+
+# deploy platform-ref-gcp claim
+deploy_platform_ref_cluster op='apply' cloud='gcp':
+  @echo {{ if op == "apply" { "Deploying platform-ref-$cloud claim" } else { "Removing platform-ref-$cloud claim" } }}
+  @kubectl {{op}} -f https://raw.githubusercontent.com/upbound/platform-ref-{{cloud}}/main/examples/cluster-claim.yaml
+
+# deploy GCP small provider config
+deploy_small_provider_config op='apply' cloud='gcp':
+  @echo {{ if op == "apply" { "Deploying ProviderConfig for $cloud" } else { "Removing ProviderConfig for $cloud" } }}
+  @envsubst < {{yaml}}/{{cloud}}-provider-config.yaml | kubectl {{op}} -f - 
 
 # deploy GCP official provider
 deploy_gcp_provider:
@@ -104,7 +151,7 @@ deploy_resource_group op='apply':
 # deploy observability
 deploy_monitoring:
   @helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-  just update_helm
+  just _update_helm
   @helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack -n prometheus \
    --set namespaceOverride=prometheus \
    --set grafana.namespaceOverride=prometheus \
@@ -118,10 +165,6 @@ deploy_monitoring:
 # enable prometheus admin api
 _enable_prometheus_admin_api:
   @kubectl -n prometheus patch prometheus kube-prometheus-stack-prometheus --type merge --patch '{"spec":{"enableAdminAPI":true}}'
-
-# get caller identity for cluster name
-get_aws_user_id:
-  @aws sts get-caller-identity | grep -i userid | awk -F ':' '{print $3}' | cut -d '"' -f1
 
 # flexible watch
 watch RESOURCE='crossplane':
@@ -162,7 +205,7 @@ upload_prometheus_metrics:
   ./scripts/uploader.sh
 
 # update helm repos
-update_helm:
+_update_helm:
   @helm repo update
 
 # get cluster kubeconfig
@@ -213,13 +256,6 @@ run_tests_azure:
   @just run_tests azure 10
   @just run_tests azure 50
   @just run_tests azure 100
-
-create_test_resource iter='2':
-  #!/usr/bin/env bash
-  for ((i = 0; i < {{iter}}; i++)); do
-    random_suffix=`echo $RANDOM`
-    envsubst < {{yaml}}/test-resource.yaml | kubectl apply -f -
-  done
 # }}}
 
 # TEARDOWN {{{

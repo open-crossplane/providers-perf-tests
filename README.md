@@ -13,7 +13,18 @@
  
 ## Introduction
 
-Performance testing crossplane providers automation setup.
+Crossplane Providers Performance Testing is an automation setup created to
+assess the performance of Crossplane providers. This tool facilitates setting up
+and configuring various testing scenarios, executing performance tests, and
+analyzing the results to gain insights into the performance of different
+Crossplane providers. 
+
+The automation setup streamlines the testing process,
+allowing for a better understanding and optimization of Crossplane
+infrastructure by providing objective data on the efficiency of different
+providers.
+
+It is possible to test regular providers as well as the new _small_ providers.
 
 ## Prerequisites
 
@@ -102,43 +113,56 @@ In this example, `envsubst` reads the contents of the cluster.yaml file, replace
 The justfile is organized into sections:
 
 - BASE INFRA SETUP: Commands to set up the base infrastructure, including clusters and observability.
-- MANAGE PROVIDERS: Commands to deploy and manage various Crossplane providers.
+- MANAGE PROVIDERS: Commands to deploy, manage and remove various Crossplane providers.
 - HELPER RECEPIES: Commands to perform various utility tasks, such as port forwarding, updating Helm repos, and getting cluster kubeconfig.
 - RUN TESTS: Commands to run performance tests and collect metrics.
-- TEARDOWN: Commands to delete resources and clean up the environment.
+- TEARDOWN: Commands to delete the whole testing setup
 
 Run `just` without any arguments to see all available recipes. Notice some
 recipes have parameters.
 
 ```bash
 Available recipes:
-    default                            # this list of available targets
-    setup prov='base'                  # - aws: eks, uxp, observability, aws provider
-    setup_base                         # * setup base infrastructure with cluster and observability
-    setup_azure                        # * setup azure
-    setup_gcp                          # * setup gcp
-    setup_aws                          # * setup aws
-    setup_eks                          # setup eks cluster
-    deploy_uxp                         # deploy uxp
-    deploy_gcp_provider                # deploy GCP official provider
-    remove_gcp_provider                # remove GCP official provider
-    deploy_azure_provider              # setup Azure official provider
-    remove_azure_provider              # remove Azure official provider
-    deploy_resource_group op='apply'   # deploy resource group
-    deploy_monitoring                  # deploy observability
-    watch RESOURCE='crossplane'        # flexible watch
-    launch_grafana                     # port forward grafana, user: admin, pw: prom-operator
-    launch_prometheus                  # port forward prometheus
-    copy_node_ip                       # get node ip
-    copy_prometheus_memory_metric prov # get prometheus query for memory
-    copy_prometheus_url                # get prometheus clusterIP for prometheus configuration
-    update_helm                        # update helm repos
-    get_kubeconfig                     # get cluster kubeconfig
-    test_gcp_deployment                # deploy a sample bucket to verify the setup
-    delete_bucket                      # delete GCP test bucket
-    run_tests prov iter='1'            # run tests and collect metrics
-    create_test_resource iter='2'      # create arbitrary number of test resource
-    delete_eks                         # delete eks cluster
+    default                                                # this list of available targets
+    setup prov='base'                                      # - aws: eks, uxp, observability, aws provider
+    setup_base                                             # * setup base infrastructure with cluster and observability
+    setup_azure                                            # * setup azure
+    setup_gcp                                              # * setup gcp
+    setup_gcp_small                                        # * setup gcp small providers setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "gcp")
+    setup_aws_small                                        # * setup aws small providers setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "aws")
+    setup_azure_small                                      # * setup azure small providers setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "azure")
+    setup_eks                                              # setup eks cluster
+    deploy_uxp version='stable' namespace='upbound-system' # deploy uxp
+    remove_uxp                                             # remove uxp
+    install_platform_ref_aws                               # install_platform_ref_aws: (install_platform_ref "v0.1.0" "aws")
+    install_platform_ref_gcp                               # install_platform_ref_gcp: (install_platform_ref "v0.1.0" "gcp")
+    install_platform_ref_azure                             # install_platform_ref_azure: (install_platform_ref "v0.1.0" "azure")
+    install_platform_ref version='v0.1.0' cloud='gcp'      # install platform-ref GCP package
+    nuke_upbound_system                                    # nuke upbound-system namespace
+    deploy_platform_ref_cluster op='apply' cloud='gcp'     # deploy platform-ref-gcp claim
+    deploy_gcp_small_provider_config                       # deploy GCP small provider config
+    deploy_gcp_provider                                    # deploy GCP official provider
+    remove_gcp_provider                                    # remove GCP official provider
+    deploy_azure_provider                                  # setup Azure official provider and make sure test resource group is created
+    remove_azure_provider                                  # remove Azure official provider
+    deploy_resource_group op='apply'                       # deploy resource group
+    deploy_monitoring                                      # deploy observability
+    get_aws_user_id                                        # get caller identity for cluster name
+    watch RESOURCE='crossplane'                            # flexible watch
+    launch_grafana                                         # port forward grafana, user: admin, pw: prom-operator
+    launch_prometheus                                      # port forward prometheus
+    copy_node_ip                                           # get node ip
+    copy_prometheus_memory_metric prov                     # get prometheus query for memory
+    copy_prometheus_url                                    # get prometheus clusterIP for prometheus configuration
+    upload_prometheus_metrics                              # upload Prometheus metrics to S3
+    update_helm                                            # update helm repos
+    get_kubeconfig                                         # get cluster kubeconfig
+    test_gcp_deployment                                    # deploy a sample bucket to verify the setup
+    delete_bucket                                          # delete GCP test bucket
+    run_tests prov iter='1'                                # run tests and collect metrics
+    run_tests_gcp                                          # run all tests for provider GCP
+    run_tests_azure                                        # run all tests for provider Azure
+    delete_eks                                             # delete eks cluster
 ```
 
 The run_tests prov iter recipe runs performance tests for a specified provider
