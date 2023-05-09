@@ -147,7 +147,7 @@ deploy_resource_group op='apply':
 # deploy observability
 deploy_monitoring:
   @helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-  just update_helm
+  just _update_helm
   @helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack -n prometheus \
    --set namespaceOverride=prometheus \
    --set grafana.namespaceOverride=prometheus \
@@ -161,10 +161,6 @@ deploy_monitoring:
 # enable prometheus admin api
 _enable_prometheus_admin_api:
   @kubectl -n prometheus patch prometheus kube-prometheus-stack-prometheus --type merge --patch '{"spec":{"enableAdminAPI":true}}'
-
-# get caller identity for cluster name
-get_aws_user_id:
-  @aws sts get-caller-identity | grep -i userid | awk -F ':' '{print $3}' | cut -d '"' -f1
 
 # flexible watch
 watch RESOURCE='crossplane':
@@ -205,7 +201,7 @@ upload_prometheus_metrics:
   ./scripts/uploader.sh
 
 # update helm repos
-update_helm:
+_update_helm:
   @helm repo update
 
 # get cluster kubeconfig
