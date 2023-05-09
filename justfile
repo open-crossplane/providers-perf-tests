@@ -83,8 +83,13 @@ remove_uxp:
   @echo "Removing UXP"
   @up uxp uninstall 
 
+# install_platform_ref_aws: (install_platform_ref "v0.1.0" "aws")
 install_platform_ref_aws: (install_platform_ref "v0.1.0" "aws")
+
+# install_platform_ref_gcp: (install_platform_ref "v0.1.0" "gcp")
 install_platform_ref_gcp: (install_platform_ref "v0.1.0" "gcp")
+
+# install_platform_ref_azure: (install_platform_ref "v0.1.0" "azure")
 install_platform_ref_azure: (install_platform_ref "v0.1.0" "azure")
 
 # install platform-ref GCP package
@@ -251,13 +256,6 @@ run_tests_azure:
   @just run_tests azure 10
   @just run_tests azure 50
   @just run_tests azure 100
-
-create_test_resource iter='2':
-  #!/usr/bin/env bash
-  for ((i = 0; i < {{iter}}; i++)); do
-    random_suffix=`echo $RANDOM`
-    envsubst < {{yaml}}/test-resource.yaml | kubectl apply -f -
-  done
 # }}}
 
 # TEARDOWN {{{
