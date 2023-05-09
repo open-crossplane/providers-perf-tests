@@ -26,6 +26,7 @@ providerconfig_gcp_name             := "default"
 azure_provider_version              := "v0.30.0-faff84353" 
 azure_provider_image                := "ulucinar/provider-azure-amd64:"
 base64encoded_azure_creds           := `base64 $AZURE_PROVIDER_CREDS | tr -d "\n"` # Variable containing path to a file with credentials for AZURE provider
+providerconfig_azure_name           := "default"
 
 # Other variables
 file_prefix                         := `echo test_$(date +%F)`
@@ -105,13 +106,13 @@ nuke_upbound_system:
 
 # deploy platform-ref-gcp claim
 deploy_platform_ref_cluster op='apply' cloud='gcp':
-  @echo {{ if op == "apply" { "Deploying platform-ref-{{cloud}} claim" } else { "Removing platform-ref-{{cloud}} claim" } }}
+  @echo {{ if op == "apply" { "Deploying platform-ref-$cloud claim" } else { "Removing platform-ref-$cloud claim" } }}
   @kubectl {{op}} -f https://raw.githubusercontent.com/upbound/platform-ref-{{cloud}}/main/examples/cluster-claim.yaml
 
 # deploy GCP small provider config
-deploy_gcp_small_provider_config:
-  @echo "Setting up ProviderConfig for GCP small providers"
-  @envsubst < {{yaml}}/gcp-provider-config.yaml | kubectl apply -f - 
+deploy_small_provider_config op='apply' cloud='gcp':
+  @echo {{ if op == "apply" { "Deploying ProviderConfig for $cloud" } else { "Removing ProviderConfig for $cloud" } }}
+  @envsubst < {{yaml}}/{{cloud}}-provider-config.yaml | kubectl {{op}} -f - 
 
 # deploy GCP official provider
 deploy_gcp_provider:

@@ -11,7 +11,7 @@ data:
 apiVersion: azure.upbound.io/v1beta1
 kind: ProviderConfig
 metadata:
-  name: provider-azure
+  name: $providerconfig_azure_name
 spec:
   credentials:
     source: Secret
