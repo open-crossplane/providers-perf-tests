@@ -28,6 +28,9 @@ azure_provider_image                := "ulucinar/provider-azure-amd64:"
 base64encoded_azure_creds           := `base64 $AZURE_PROVIDER_CREDS | tr -d "\n"` # Variable containing path to a file with credentials for AZURE provider
 providerconfig_azure_name           := "default"
 
+base64encoded_aws_creds             := `printf "[default]\n    aws_access_key_id = %s\n    aws_secret_access_key = %s" "${AWS_KEY_ID}" "${AWS_SECRET}" | base64 | tr -d "\n"`
+providerconfig_aws_name             := "default"
+
 # Other variables
 file_prefix                         := `echo test_$(date +%F)`
 cluster_name                        := "piotr-perf-test"
