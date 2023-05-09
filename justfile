@@ -55,13 +55,13 @@ setup_azure: setup_base deploy_azure_provider deploy_resource_group
 # * setup gcp
 setup_gcp: setup_base deploy_gcp_provider
 
-# * setup gcp small providers
+# * setup gcp small providers setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "gcp")
 setup_gcp_small: setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "gcp")
 
-# * setup aws small providers
+# * setup aws small providers setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "aws")
 setup_aws_small: setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "aws")
 
-# * setup azure small providers
+# * setup azure small providers setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "azure")
 setup_azure_small: setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "azure")
 
 # setup eks cluster
