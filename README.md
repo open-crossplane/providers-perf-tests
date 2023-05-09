@@ -13,7 +13,16 @@
  
 ## Introduction
 
-Performance testing crossplane providers automation setup.
+Crossplane Providers Performance Testing is an automation setup created to
+assess the performance of Crossplane providers. This tool facilitates setting up
+and configuring various testing scenarios, executing performance tests, and
+analyzing the results to gain insights into the performance of different
+Crossplane providers. 
+
+The automation setup streamlines the testing process,
+allowing for a better understanding and optimization of Crossplane
+infrastructure by providing objective data on the efficiency of different
+providers.
 
 ## Prerequisites
 
