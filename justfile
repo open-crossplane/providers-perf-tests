@@ -13,67 +13,99 @@ copy                                := if os() == "linux" { "xsel -ib"} else { "
 browse                              := if os() == "linux" { "xdg-open "} else { "open" }
 
 # Provider related variables
-# gcp_provider_version                := "v0.29.0" 
 gcp_provider_version                := "v0.30.0-62a5320"
-# gcp_provider_image                  := "xpkg.upbound.io/upbound/provider-gcp:" 
 gcp_provider_image                  :=  "ulucinar/provider-gcp-amd64:"
 gcp_project_id                      := "squad-platform-playground"
 base64encoded_gcp_creds             := `base64 $GCP_PROVIDER_CREDS | tr -d "\n"` # Variable containing path to a file with credentials for GCP provider
 providerconfig_gcp_name             := "default"
+gke_node                            := "n1-standard-16"
+gke_private_network                 := "small-provider-network"
+gke_location                        := "europe-west2-a"
 
-# azure_provider_version              := "v0.29.0"
-# azure_provider_image                := "xpkg.upbound.io/upbound/provider-azure:" 
 azure_provider_version              := "v0.30.0-faff84353" 
 azure_provider_image                := "ulucinar/provider-azure-amd64:"
 base64encoded_azure_creds           := `base64 $AZURE_PROVIDER_CREDS | tr -d "\n"` # Variable containing path to a file with credentials for AZURE provider
 providerconfig_azure_name           := "default"
+aks_node                            := "Standard_D8s_v3" 
+aks_resource_group                  := "SmallProvidersTesting"
+aks_location                        := "westeurope"
 
 base64encoded_aws_creds             := `printf "[default]\n    aws_access_key_id = %s\n    aws_secret_access_key = %s" "${AWS_KEY_ID}" "${AWS_SECRET}" | base64 | tr -d "\n"`
 providerconfig_aws_name             := "default"
+eks_node                            := "c5.4xlarge"
+eks_region                          := "eu-central-1"
 
 # Other variables
 file_prefix                         := `echo test_$(date +%F)`
-cluster_name                        := "piotr-perf-test"
-eks_region                          := "eu-central-1"
+cluster_name                        := "small-providers-testing"
 user_id                             := `aws sts get-caller-identity | grep -i userid | awk -F ':' '{print $3}' | cut -d '"' -f1`
 random_suffix                       := `echo $RANDOM`
-context                             := user_id+"@"+cluster_name+"."+eks_region+".eksctl.io"
-node                                := "c5.4xlarge"
 
 # this list of available targets
 default:
   @just --list --unsorted
 
 # BASE INFRA SETUP {{{
-# * entry setup recepie, possible values: base (defult), azure, aws, gcp, all
-# - aws: eks, uxp, observability, aws provider
-setup prov='base': 
-  @just setup_{{prov}}
+# * entry setup recepie, possible values: cluster: eks, aks, gke, uxprelease: stable, unstable. Creates a cluster with uxp and observability.
+setup_base cluster='eks' uxp_release='stable': (_setup_cluster cluster) (deploy_uxp uxp_release) deploy_monitoring 
+ 
+_testme cluster='aks' uxp_release='stable': (_setup_cluster cluster) (_testme2 uxp_release) 
+_testme2 release:
+  @echo setting up uxp in {{release}} mode
 
-# * setup base infrastructure with cluster and observability
-setup_base_unstable: setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring 
-
-# * setup base infrastructure with cluster and observability
-setup_base: setup_eks get_kubeconfig (deploy_uxp "stable") deploy_monitoring 
-
-# * setup azure
-setup_azure: setup_base deploy_azure_provider deploy_resource_group
-
-# * setup gcp
-setup_gcp: setup_base deploy_gcp_provider
-
-# * setup gcp small providers setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "gcp")
-setup_gcp_small: setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "gcp")
-
-# * setup aws small providers setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "aws")
-setup_aws_small: setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "aws")
-
-# * setup azure small providers setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "azure")
-setup_azure_small: setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "azure")
+_setup_cluster cluster='eks':
+  just {{ if cluster == "aks" { "_setup_aks" } else if cluster == "gke" { "_setup_gke" } else { "_setup_eks" } }}
 
 # setup eks cluster
-setup_eks: 
+_setup_eks:
+  @echo "Setting up EKS cluster"
   @envsubst < {{yaml}}/cluster.yaml | eksctl create cluster --write-kubeconfig=false --config-file -
+  just _get_kubeconfig
+
+# setup aks cluster
+_setup_aks:
+  #!/usr/bin/env bash
+  set -euo pipefail
+
+  echo "Placeholder to setup AKS cluster"
+
+  echo "Login with service principal"
+  az login --service-principal --username $AZURE_CLIENT_ID --password $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID || exit 1
+
+  echo "Create resource group"
+  az group create --name {{aks_resource_group}} --location {{aks_location}} || exit 1
+
+  echo "Create AKS cluster"
+  az aks create \
+    --resource-group {{aks_resource_group}} \
+    --name aks-{{cluster_name}} \
+    --node-count 1 \
+    --node-vm-size {{aks_node}} \
+    --location {{aks_location}} \
+    --generate-ssh-keys || exit 1
+  
+  echo "Set kubeconfig with the cluster credentials"
+  az aks get-credentials --resource-group {{aks_resource_group}} --name aks-{{cluster_name}} || exit 1
+
+# setup gke cluster
+_setup_gke:
+  #!/usr/bin/env bash
+  set -euo pipefail
+
+  echo "Set the environment variable for the Google Cloud service account"
+  export GOOGLE_APPLICATION_CREDENTIALS=$GCP_PROVIDER_CREDS || exit 1
+
+  echo "Create dedicated network for the cluster"
+  gcloud compute networks create {{gke_private_network}} --subnet-mode=auto
+
+  echo "Creating GKE cluster"
+  gcloud container clusters create gke-{{cluster_name}} \
+    --project={{gcp_project_id}} \
+    --zone={{gke_location}} \
+    --num-nodes=1 \
+    --machine-type={{gke_node}} \
+    --network={{gke_private_network}} || exit 1
+  gcloud container clusters get-credentials gke-{{cluster_name}} --zone={{gke_location}} --project={{gcp_project_id}} || exit 1
 # }}}
 
 # MANAGE PROVIDERS {{{
@@ -212,8 +244,8 @@ _update_helm:
   @helm repo update
 
 # get cluster kubeconfig
-get_kubeconfig:
-  @eksctl utils write-kubeconfig --cluster={{cluster_name}} --region=eu-central-1 --kubeconfig=./config --set-kubeconfig-context=true
+_get_kubeconfig:
+  @eksctl utils write-kubeconfig --cluster=eks-{{cluster_name}} --region=eu-central-1 --kubeconfig=./config --set-kubeconfig-context=true
 
 # deploy a sample bucket to verify the setup
 test_gcp_deployment:
@@ -264,6 +296,24 @@ run_tests_azure:
 # TEARDOWN {{{
 # delete eks cluster
 delete_eks:
-  @eksctl delete cluster --region=eu-central-1 --name={{cluster_name}}
+  @eksctl delete cluster --region={{eks_region}} --name=eks-{{cluster_name}}
+
+# delete aks cluster
+delete_aks:
+  @az aks delete --name aks-{{cluster_name}} --resource-group {{aks_resource_group}} --yes
+  @az group delete --name {{aks_resource_group}} --yes --no-wait
+
+delete_gke:
+  #!/usr/bin/env bash
+  set -euo pipefail
+  echo "Set the environment variable for the Google Cloud service account"
+  export GOOGLE_APPLICATION_CREDENTIALS=$GCP_PROVIDER_CREDS || exit 1
+  echo "Deleting GKE cluster"
+  gcloud container clusters delete gke-{{cluster_name}} \
+    --project={{gcp_project_id}} \
+    --zone={{gke_location}} \
+    --quiet || exit 1
+  echo "Delete dedicated network"
+  gcloud compute networks delete {{gke_private_network}} --quiet
 # }}}
 

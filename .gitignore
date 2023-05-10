@@ -3,3 +3,5 @@ config
 perf-tool
 perf-tool-backup
 
+
+gke_gcloud_auth_plugin_cache
