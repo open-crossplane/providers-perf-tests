@@ -51,6 +51,9 @@ setup prov='base':
   @just setup_{{prov}}
 
 # * setup base infrastructure with cluster and observability
+setup_base_unstable: setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring 
+
+# * setup base infrastructure with cluster and observability
 setup_base: setup_eks get_kubeconfig (deploy_uxp "stable") deploy_monitoring 
 
 # * setup azure
