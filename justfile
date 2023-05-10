@@ -61,6 +61,8 @@ _setup_eks:
   @echo "Setting up EKS cluster"
   @envsubst < {{yaml}}/cluster.yaml | eksctl create cluster --write-kubeconfig=false --config-file -
   just _get_kubeconfig
+  just _deploy_small_provider_config "apply" "eks"
+
 
 # setup aks cluster
 _setup_aks:
@@ -86,6 +88,8 @@ _setup_aks:
   
   echo "Set kubeconfig with the cluster credentials"
   az aks get-credentials --resource-group {{aks_resource_group}} --name aks-{{cluster_name}} || exit 1
+  echo "Setting up ProviderConfig for Azure"
+  just _deploy_small_provider_config "apply" "aks"
 
 # setup gke cluster
 _setup_gke:
@@ -106,6 +110,8 @@ _setup_gke:
     --machine-type={{gke_node}} \
     --network={{gke_private_network}} || exit 1
   gcloud container clusters get-credentials gke-{{cluster_name}} --zone={{gke_location}} --project={{gcp_project_id}} || exit 1
+  just _deploy_small_provider_config "apply" "gke"
+
 # }}}
 
 # MANAGE PROVIDERS {{{
@@ -143,12 +149,12 @@ nuke_upbound_system:
   @kubectl delete namespace upbound-system
 
 # deploy platform-ref-gcp claim
-deploy_platform_ref_cluster op='apply' cloud='gcp':
+deploy_platform_ref_claim op='apply' cloud='gcp':
   @echo {{ if op == "apply" { "Deploying platform-ref-$cloud claim" } else { "Removing platform-ref-$cloud claim" } }}
   @kubectl {{op}} -f https://raw.githubusercontent.com/upbound/platform-ref-{{cloud}}/main/examples/cluster-claim.yaml
 
 # deploy GCP small provider config
-deploy_small_provider_config op='apply' cloud='gcp':
+_deploy_small_provider_config op='apply' cloud='gcp':
   @echo {{ if op == "apply" { "Deploying ProviderConfig for $cloud" } else { "Removing ProviderConfig for $cloud" } }}
   @envsubst < {{yaml}}/{{cloud}}-provider-config.yaml | kubectl {{op}} -f - 
 
