@@ -32,7 +32,7 @@ aks_location                        := "westeurope"
 
 base64encoded_aws_creds             := `printf "[default]\n    aws_access_key_id = %s\n    aws_secret_access_key = %s" "${AWS_KEY_ID}" "${AWS_SECRET}" | base64 | tr -d "\n"`
 providerconfig_aws_name             := "default"
-eks_node                            := "c5.4xlarge"
+eks_node                            := "m5.2xlarge"
 eks_region                          := "eu-central-1"
 
 # Other variables
