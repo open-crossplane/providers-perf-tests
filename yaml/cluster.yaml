@@ -2,11 +2,11 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: $cluster_name
+  name: eks-$cluster_name
   region: $eks_region
   version: "1.25"
 
 nodeGroups:
   - name: ng-1
-    instanceType: $node
+    instanceType: $eks_node
     desiredCapacity: 1
