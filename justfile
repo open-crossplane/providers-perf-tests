@@ -47,22 +47,20 @@ default:
 
 # BASE INFRA SETUP {{{
 # * entry setup recepie, possible values: cluster: eks, aks, gke, uxprelease: stable, unstable. Creates a cluster with uxp and observability.
-setup_base cluster='eks' uxp_release='stable': (_setup_cluster cluster) (deploy_uxp uxp_release) deploy_monitoring 
- 
-_testme cluster='aks' uxp_release='stable': (_setup_cluster cluster) (_testme2 uxp_release) 
-_testme2 release:
-  @echo setting up uxp in {{release}} mode
+setup_base cloud='aws' uxp_release='stable': (_setup_cluster cloud) (deploy_uxp uxp_release) _deploy_monitoring 
 
-_setup_cluster cluster='eks':
-  just {{ if cluster == "aks" { "_setup_aks" } else if cluster == "gke" { "_setup_gke" } else { "_setup_eks" } }}
+# * install platform ref and setup ProviderConfig for a given cloud
+install_platformref cloud='aws': (_install_platform_ref "v0.1.0" cloud) (_deploy_small_provider_config "apply" cloud)
+
+# helper recipe for translating between cloud names and clusters
+_setup_cluster cloud='aws':
+  just {{ if cloud == "azure" { "_setup_aks" } else if cloud == "gcp" { "_setup_gke" } else { "_setup_eks" } }}
 
 # setup eks cluster
 _setup_eks:
   @echo "Setting up EKS cluster"
   @envsubst < {{yaml}}/cluster.yaml | eksctl create cluster --write-kubeconfig=false --config-file -
   just _get_kubeconfig
-  just _deploy_small_provider_config "apply" "eks"
-
 
 # setup aks cluster
 _setup_aks:
@@ -89,7 +87,6 @@ _setup_aks:
   echo "Set kubeconfig with the cluster credentials"
   az aks get-credentials --resource-group {{aks_resource_group}} --name aks-{{cluster_name}} || exit 1
   echo "Setting up ProviderConfig for Azure"
-  just _deploy_small_provider_config "apply" "aks"
 
 # setup gke cluster
 _setup_gke:
@@ -110,7 +107,6 @@ _setup_gke:
     --machine-type={{gke_node}} \
     --network={{gke_private_network}} || exit 1
   gcloud container clusters get-credentials gke-{{cluster_name}} --zone={{gke_location}} --project={{gcp_project_id}} || exit 1
-  just _deploy_small_provider_config "apply" "gke"
 
 # }}}
 
@@ -128,30 +124,11 @@ remove_uxp:
   @echo "Removing UXP"
   @up uxp uninstall 
 
-# install_platform_ref_aws: (install_platform_ref "v0.1.0" "aws")
-install_platform_ref_aws: (install_platform_ref "v0.1.0" "aws")
-
-# install_platform_ref_gcp: (install_platform_ref "v0.1.0" "gcp")
-install_platform_ref_gcp: (install_platform_ref "v0.1.0" "gcp")
-
-# install_platform_ref_azure: (install_platform_ref "v0.1.0" "azure")
-install_platform_ref_azure: (install_platform_ref "v0.1.0" "azure")
-
 # install platform-ref GCP package
-install_platform_ref version='v0.1.0' cloud='gcp':
+_install_platform_ref version='v0.1.0' cloud='gcp':
   @echo "Deploying platform-ref {{cloud}} package"
   @up ctp configuration install xpkg.upbound.io/upbound-release-candidates/platform-ref-{{cloud}}:{{version}}
   @kubectl wait --for condition=Healthy=True --timeout=300s configuration/upbound-release-candidates-platform-ref-{{cloud}}
-
-# nuke upbound-system namespace
-nuke_upbound_system:
-  @echo "Removing upbound-system namespace"
-  @kubectl delete namespace upbound-system
-
-# deploy platform-ref-gcp claim
-deploy_platform_ref_claim op='apply' cloud='gcp':
-  @echo {{ if op == "apply" { "Deploying platform-ref-$cloud claim" } else { "Removing platform-ref-$cloud claim" } }}
-  @kubectl {{op}} -f https://raw.githubusercontent.com/upbound/platform-ref-{{cloud}}/main/examples/cluster-claim.yaml
 
 # deploy GCP small provider config
 _deploy_small_provider_config op='apply' cloud='gcp':
@@ -190,7 +167,7 @@ deploy_resource_group op='apply':
   @kubectl {{op}} -f {{yaml}}/azure-rg.yaml
 
 # deploy observability
-deploy_monitoring:
+_deploy_monitoring:
   @helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
   just _update_helm
   @helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack -n prometheus \
@@ -206,6 +183,11 @@ deploy_monitoring:
 # enable prometheus admin api
 _enable_prometheus_admin_api:
   @kubectl -n prometheus patch prometheus kube-prometheus-stack-prometheus --type merge --patch '{"spec":{"enableAdminAPI":true}}'
+
+# nuke upbound-system namespace
+nuke_upbound_system:
+  @echo "Removing upbound-system namespace"
+  @kubectl delete namespace upbound-system
 
 # flexible watch
 watch RESOURCE='crossplane':
@@ -265,6 +247,11 @@ delete_bucket:
 ### }}}
   
 # RUN TESTS {{{
+# deploy platform-ref-gcp claim
+deploy_platform_ref_claim op='apply' cloud='gcp':
+  @echo {{ if op == "apply" { "Deploying platform-ref-$cloud claim" } else { "Removing platform-ref-$cloud claim" } }}
+  @kubectl {{op}} -f https://raw.githubusercontent.com/upbound/platform-ref-{{cloud}}/main/examples/cluster-claim.yaml
+
 # run tests and collect metrics
 run_tests prov iter='1':
   #!/usr/bin/env bash
@@ -309,6 +296,7 @@ delete_aks:
   @az aks delete --name aks-{{cluster_name}} --resource-group {{aks_resource_group}} --yes
   @az group delete --name {{aks_resource_group}} --yes --no-wait
 
+# delete gke cluster
 delete_gke:
   #!/usr/bin/env bash
   set -euo pipefail
