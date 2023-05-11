@@ -110,6 +110,31 @@ In this example, `envsubst` reads the contents of the cluster.yaml file, replace
 
 ## Justfile overview
 
+There are 3 main parts to setting up infrastructure and preparing the tests
+
+### Setup base infrastructure
+
+Use `setup base [cloud] [upx_release]` to setup a base environment with uxp
+and observability stack installed:
+
+```diff
+! possible values: cluster: eks, aks, gke, uxprelease: stable, unstable. Creates a cluster with uxp and observability. !
+```
+
+For example to setup an AKS cluster in azure with experimental build of `uxl`
+run `just setup_base azure unstable`.
+
+### Install providers
+
+Depending on what providers you want to test _classic_ or _small providers_, use
+either `just install_platformref azure` for small providers or or `just
+deploy_[cloud]_provider`.
+
+### Run tests
+
+For running tests with MRs, in both cases use `just run tests [cloud] [number of
+resources]`
+
 The justfile is organized into sections:
 
 - BASE INFRA SETUP: Commands to set up the base infrastructure, including clusters and observability.
@@ -122,32 +147,18 @@ Run `just` without any arguments to see all available recipes. Notice some
 recipes have parameters.
 
 ```bash
-Available recipes:
+Available recipes:                                         
     default                                                # this list of available targets
-    setup prov='base'                                      # - aws: eks, uxp, observability, aws provider
-    setup_base                                             # * setup base infrastructure with cluster and observability
-    setup_azure                                            # * setup azure
-    setup_gcp                                              # * setup gcp
-    setup_gcp_small                                        # * setup gcp small providers setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "gcp")
-    setup_aws_small                                        # * setup aws small providers setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "aws")
-    setup_azure_small                                      # * setup azure small providers setup_eks get_kubeconfig (deploy_uxp "unstable") deploy_monitoring (install_platform_ref "v0.1.0" "azure")
-    setup_eks                                              # setup eks cluster
+    setup_base cloud='aws' uxp_release='stable'            # * entry setup recepie, possible values: cluster: eks, aks, gke, uxprelease: stable, unstable. Creates a cluster with uxp and observability.
+    install_platformref cloud='aws'                        # * install platform ref and setup ProviderConfig for a given cloud
     deploy_uxp version='stable' namespace='upbound-system' # deploy uxp
     remove_uxp                                             # remove uxp
-    install_platform_ref_aws                               # install_platform_ref_aws: (install_platform_ref "v0.1.0" "aws")
-    install_platform_ref_gcp                               # install_platform_ref_gcp: (install_platform_ref "v0.1.0" "gcp")
-    install_platform_ref_azure                             # install_platform_ref_azure: (install_platform_ref "v0.1.0" "azure")
-    install_platform_ref version='v0.1.0' cloud='gcp'      # install platform-ref GCP package
-    nuke_upbound_system                                    # nuke upbound-system namespace
-    deploy_platform_ref_cluster op='apply' cloud='gcp'     # deploy platform-ref-gcp claim
-    deploy_gcp_small_provider_config                       # deploy GCP small provider config
     deploy_gcp_provider                                    # deploy GCP official provider
     remove_gcp_provider                                    # remove GCP official provider
     deploy_azure_provider                                  # setup Azure official provider and make sure test resource group is created
     remove_azure_provider                                  # remove Azure official provider
     deploy_resource_group op='apply'                       # deploy resource group
-    deploy_monitoring                                      # deploy observability
-    get_aws_user_id                                        # get caller identity for cluster name
+    nuke_upbound_system                                    # nuke upbound-system namespace
     watch RESOURCE='crossplane'                            # flexible watch
     launch_grafana                                         # port forward grafana, user: admin, pw: prom-operator
     launch_prometheus                                      # port forward prometheus
@@ -155,14 +166,15 @@ Available recipes:
     copy_prometheus_memory_metric prov                     # get prometheus query for memory
     copy_prometheus_url                                    # get prometheus clusterIP for prometheus configuration
     upload_prometheus_metrics                              # upload Prometheus metrics to S3
-    update_helm                                            # update helm repos
-    get_kubeconfig                                         # get cluster kubeconfig
     test_gcp_deployment                                    # deploy a sample bucket to verify the setup
     delete_bucket                                          # delete GCP test bucket
+    deploy_platform_ref_claim op='apply' cloud='gcp'       # deploy platform-ref-gcp claim
     run_tests prov iter='1'                                # run tests and collect metrics
     run_tests_gcp                                          # run all tests for provider GCP
     run_tests_azure                                        # run all tests for provider Azure
     delete_eks                                             # delete eks cluster
+    delete_aks                                             # delete aks cluster
+    delete_gke                                             # delete gke cluster
 ```
 
 The run_tests prov iter recipe runs performance tests for a specified provider
