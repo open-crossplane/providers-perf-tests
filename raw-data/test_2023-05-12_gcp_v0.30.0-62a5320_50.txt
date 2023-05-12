@@ -1,0 +1,177 @@
+time="2023-05-12T13:49:29+02:00" level=info msg="Experiment Started 2023-05-12 13:49:29.068743365 +0200 CEST m=+0.012617038\n\n"
+bucket.storage.gcp.upbound.io/testperf1122331 created
+bucket.storage.gcp.upbound.io/testperf1122332 created
+bucket.storage.gcp.upbound.io/testperf1122333 created
+bucket.storage.gcp.upbound.io/testperf1122334 created
+bucket.storage.gcp.upbound.io/testperf1122335 created
+bucket.storage.gcp.upbound.io/testperf1122336 created
+bucket.storage.gcp.upbound.io/testperf1122337 created
+bucket.storage.gcp.upbound.io/testperf1122338 created
+bucket.storage.gcp.upbound.io/testperf1122339 created
+bucket.storage.gcp.upbound.io/testperf11223310 created
+bucket.storage.gcp.upbound.io/testperf11223311 created
+bucket.storage.gcp.upbound.io/testperf11223312 created
+bucket.storage.gcp.upbound.io/testperf11223313 created
+bucket.storage.gcp.upbound.io/testperf11223314 created
+bucket.storage.gcp.upbound.io/testperf11223315 created
+bucket.storage.gcp.upbound.io/testperf11223316 created
+bucket.storage.gcp.upbound.io/testperf11223317 created
+bucket.storage.gcp.upbound.io/testperf11223318 created
+bucket.storage.gcp.upbound.io/testperf11223319 created
+bucket.storage.gcp.upbound.io/testperf11223320 created
+bucket.storage.gcp.upbound.io/testperf11223321 created
+bucket.storage.gcp.upbound.io/testperf11223322 created
+bucket.storage.gcp.upbound.io/testperf11223323 created
+bucket.storage.gcp.upbound.io/testperf11223324 created
+bucket.storage.gcp.upbound.io/testperf11223325 created
+bucket.storage.gcp.upbound.io/testperf11223326 created
+bucket.storage.gcp.upbound.io/testperf11223327 created
+bucket.storage.gcp.upbound.io/testperf11223328 created
+bucket.storage.gcp.upbound.io/testperf11223329 created
+bucket.storage.gcp.upbound.io/testperf11223330 created
+bucket.storage.gcp.upbound.io/testperf11223331 created
+bucket.storage.gcp.upbound.io/testperf11223332 created
+bucket.storage.gcp.upbound.io/testperf11223333 created
+bucket.storage.gcp.upbound.io/testperf11223334 created
+bucket.storage.gcp.upbound.io/testperf11223335 created
+bucket.storage.gcp.upbound.io/testperf11223336 created
+bucket.storage.gcp.upbound.io/testperf11223337 created
+bucket.storage.gcp.upbound.io/testperf11223338 created
+bucket.storage.gcp.upbound.io/testperf11223339 created
+bucket.storage.gcp.upbound.io/testperf11223340 created
+bucket.storage.gcp.upbound.io/testperf11223341 created
+bucket.storage.gcp.upbound.io/testperf11223342 created
+bucket.storage.gcp.upbound.io/testperf11223343 created
+bucket.storage.gcp.upbound.io/testperf11223344 created
+bucket.storage.gcp.upbound.io/testperf11223345 created
+bucket.storage.gcp.upbound.io/testperf11223346 created
+bucket.storage.gcp.upbound.io/testperf11223347 created
+bucket.storage.gcp.upbound.io/testperf11223348 created
+bucket.storage.gcp.upbound.io/testperf11223349 created
+bucket.storage.gcp.upbound.io/testperf11223350 created
+time="2023-05-12T13:49:32+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:49:43+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:49:53+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:50:03+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:50:13+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:50:23+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:50:33+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:50:43+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:50:54+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:51:04+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:51:14+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:51:24+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:51:34+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:51:44+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:51:54+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:52:04+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:52:14+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:52:24+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:52:35+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:52:45+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:52:55+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:53:05+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:53:15+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:53:25+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:53:35+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:53:45+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:53:55+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:54:05+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:54:16+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:54:26+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:54:36+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:54:46+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:54:56+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:55:06+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:55:16+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:55:26+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:55:36+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:55:46+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:55:56+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:56:07+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:56:17+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:56:27+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:56:37+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:56:47+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:56:57+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:57:07+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:57:17+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:57:27+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:57:37+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:57:48+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:57:58+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:58:08+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:58:18+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:58:28+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:58:38+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:58:48+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:58:59+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:59:09+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:59:19+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:59:29+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:59:39+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:59:49+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:59:59+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:59:59+02:00" level=info msg="Calculating readiness time of resources..."
+time="2023-05-12T14:00:00+02:00" level=info msg="Deleting resources..."
+bucket.storage.gcp.upbound.io "testperf1122331" deleted
+bucket.storage.gcp.upbound.io "testperf1122332" deleted
+bucket.storage.gcp.upbound.io "testperf1122333" deleted
+bucket.storage.gcp.upbound.io "testperf1122334" deleted
+bucket.storage.gcp.upbound.io "testperf1122335" deleted
+bucket.storage.gcp.upbound.io "testperf1122336" deleted
+bucket.storage.gcp.upbound.io "testperf1122337" deleted
+bucket.storage.gcp.upbound.io "testperf1122338" deleted
+bucket.storage.gcp.upbound.io "testperf1122339" deleted
+bucket.storage.gcp.upbound.io "testperf11223310" deleted
+bucket.storage.gcp.upbound.io "testperf11223311" deleted
+bucket.storage.gcp.upbound.io "testperf11223312" deleted
+bucket.storage.gcp.upbound.io "testperf11223313" deleted
+bucket.storage.gcp.upbound.io "testperf11223314" deleted
+bucket.storage.gcp.upbound.io "testperf11223315" deleted
+bucket.storage.gcp.upbound.io "testperf11223316" deleted
+bucket.storage.gcp.upbound.io "testperf11223317" deleted
+bucket.storage.gcp.upbound.io "testperf11223318" deleted
+bucket.storage.gcp.upbound.io "testperf11223319" deleted
+bucket.storage.gcp.upbound.io "testperf11223320" deleted
+bucket.storage.gcp.upbound.io "testperf11223321" deleted
+bucket.storage.gcp.upbound.io "testperf11223322" deleted
+bucket.storage.gcp.upbound.io "testperf11223323" deleted
+bucket.storage.gcp.upbound.io "testperf11223324" deleted
+bucket.storage.gcp.upbound.io "testperf11223325" deleted
+bucket.storage.gcp.upbound.io "testperf11223326" deleted
+bucket.storage.gcp.upbound.io "testperf11223327" deleted
+bucket.storage.gcp.upbound.io "testperf11223328" deleted
+bucket.storage.gcp.upbound.io "testperf11223329" deleted
+bucket.storage.gcp.upbound.io "testperf11223330" deleted
+bucket.storage.gcp.upbound.io "testperf11223331" deleted
+bucket.storage.gcp.upbound.io "testperf11223332" deleted
+bucket.storage.gcp.upbound.io "testperf11223333" deleted
+bucket.storage.gcp.upbound.io "testperf11223334" deleted
+bucket.storage.gcp.upbound.io "testperf11223335" deleted
+bucket.storage.gcp.upbound.io "testperf11223336" deleted
+bucket.storage.gcp.upbound.io "testperf11223337" deleted
+bucket.storage.gcp.upbound.io "testperf11223338" deleted
+bucket.storage.gcp.upbound.io "testperf11223339" deleted
+bucket.storage.gcp.upbound.io "testperf11223340" deleted
+bucket.storage.gcp.upbound.io "testperf11223341" deleted
+bucket.storage.gcp.upbound.io "testperf11223342" deleted
+bucket.storage.gcp.upbound.io "testperf11223343" deleted
+bucket.storage.gcp.upbound.io "testperf11223344" deleted
+bucket.storage.gcp.upbound.io "testperf11223345" deleted
+bucket.storage.gcp.upbound.io "testperf11223346" deleted
+bucket.storage.gcp.upbound.io "testperf11223347" deleted
+bucket.storage.gcp.upbound.io "testperf11223348" deleted
+bucket.storage.gcp.upbound.io "testperf11223349" deleted
+bucket.storage.gcp.upbound.io "testperf11223350" deleted
+time="2023-05-12T14:00:30+02:00" level=info msg="\nExperiment Ended 2023-05-12 14:00:30.585350898 +0200 CEST m=+661.529224622\n\n"
+time="2023-05-12T14:00:30+02:00" level=info msg="Results\n------------------------------------------------------------\n"
+time="2023-05-12T14:00:30+02:00" level=info msg="Experiment Duration: 661.516608 seconds\n"
+time="2023-05-12T14:01:30+02:00" level=info msg="Average Time to Readiness of Bucket: 441.040000 seconds \n"
+time="2023-05-12T14:01:30+02:00" level=info msg="Peak Time to Readiness of Bucket: 623.000000 seconds \n"
+time="2023-05-12T14:01:30+02:00" level=info msg="Pod: upbound-release-candidates-provider-gcp-storage-3c1d8cc0c04lqhl"
+time="2023-05-12T14:01:30+02:00" level=info msg="Average Memory: 371280785.373961 Bytes \n"
+time="2023-05-12T14:01:30+02:00" level=info msg="Peak Memory: 751722496.000000 Bytes \n"
+time="2023-05-12T14:01:30+02:00" level=info msg="Pod: upbound-release-candidates-provider-gcp-storage-3c1d8cc0c04lqhl"
+time="2023-05-12T14:01:30+02:00" level=info msg="Average CPU: 7.424782 Rate \n"
+time="2023-05-12T14:01:30+02:00" level=info msg="Peak CPU: 18.849074 Rate \n"

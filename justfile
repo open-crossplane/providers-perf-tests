@@ -30,6 +30,7 @@ aks_node                            := "Standard_D8s_v3"
 aks_resource_group                  := "SmallProvidersTesting"
 aks_location                        := "westeurope"
 
+# TODO: figure out why this doesn't render correctly in the secret
 base64encoded_aws_creds             := `printf "[default]\n    aws_access_key_id = %s\n    aws_secret_access_key = %s" "${AWS_KEY_ID}" "${AWS_SECRET}" | base64 | tr -d "\n"`
 providerconfig_aws_name             := "default"
 eks_node                            := "m5.2xlarge"
@@ -45,12 +46,17 @@ random_suffix                       := `echo $RANDOM`
 default:
   @just --list --unsorted
 
+testme:
+  @echo $base64encoded_aws_creds
+  @envsubst < {{yaml}}/aws-provider-config.yaml | cat -
+
+
 # BASE INFRA SETUP {{{
 # * entry setup recepie, possible values: cluster: eks, aks, gke, uxprelease: stable, unstable. Creates a cluster with uxp and observability.
 setup_base cloud='aws' uxp_release='stable': (_setup_cluster cloud) (deploy_uxp uxp_release) _deploy_monitoring 
 
 # * install platform ref and setup ProviderConfig for a given cloud
-install_platformref cloud='aws': (_install_platform_ref "v0.1.0" cloud) (_deploy_small_provider_config "apply" cloud)
+install_platformref cloud='aws': (_install_platform_ref "v0.1.0-rc.0" cloud) (_deploy_small_provider_config "apply" cloud)
 
 # helper recipe for translating between cloud names and clusters
 _setup_cluster cloud='aws':
@@ -253,6 +259,7 @@ deploy_platform_ref_claim op='apply' cloud='gcp':
   @kubectl {{op}} -f https://raw.githubusercontent.com/upbound/platform-ref-{{cloud}}/main/examples/cluster-claim.yaml
 
 # run tests and collect metrics
+# TODO: collect all pods into an array and pass to the tool
 run_tests prov iter='1':
   #!/usr/bin/env bash
   # go run github.com/Piotr1215/perf-tool-uptest/cmd/perf@performance-tool2 \
@@ -260,13 +267,16 @@ run_tests prov iter='1':
     echo "Launch prometheus metrics server port forwarding with just launch_prometheus"
     exit 1
   fi
-  pod=$(kubectl -n upbound-system get pod -l pkg.crossplane.io/provider=provider-{{prov}} -o name)
-  pod="${pod##*/}"
+           # --provider-pods "$pod" \
+
+  pod="upbound-release-candidates-provider-gcp-storage-3c1d8cc0c04lqhl"
+  # pod=$(kubectl -n upbound-system get pod -l pkg.crossplane.io/provider=provider-{{prov}} -o name)
+  # pod="${pod##*/}"
   node_ip=$(kubectl get nodes -o wide | awk ' FNR == 2 {print $6}')
   active_provider_version=$(printenv | grep {{prov}}_provider_version | awk -F '=' '{print $2}')
   cd {{uptest}} && go run {{uptest}}/cmd/perf/main.go \
          --mrs {{yaml}}/test-resource-{{prov}}.yaml={{iter}} \
-         --provider-pod "$pod" \
+         --provider-pods "$pod" \
          --provider-namespace upbound-system \
          --node "$node_ip":9100 \
          --step-duration 1s |& tee {{raw_data}}/{{file_prefix}}_{{prov}}_"$active_provider_version"_{{iter}}.txt

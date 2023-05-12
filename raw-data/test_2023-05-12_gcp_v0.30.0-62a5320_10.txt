@@ -1,0 +1,42 @@
+time="2023-05-12T13:34:47+02:00" level=info msg="Experiment Started 2023-05-12 13:34:47.181749801 +0200 CEST m=+0.012811374\n\n"
+bucket.storage.gcp.upbound.io/testperf1122331 created
+bucket.storage.gcp.upbound.io/testperf1122332 created
+bucket.storage.gcp.upbound.io/testperf1122333 created
+bucket.storage.gcp.upbound.io/testperf1122334 created
+bucket.storage.gcp.upbound.io/testperf1122335 created
+bucket.storage.gcp.upbound.io/testperf1122336 created
+bucket.storage.gcp.upbound.io/testperf1122337 created
+bucket.storage.gcp.upbound.io/testperf1122338 created
+bucket.storage.gcp.upbound.io/testperf1122339 created
+bucket.storage.gcp.upbound.io/testperf11223310 created
+time="2023-05-12T13:34:48+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:34:59+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:35:09+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:35:19+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:35:29+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:35:39+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:35:49+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:35:59+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T13:35:59+02:00" level=info msg="Calculating readiness time of resources..."
+time="2023-05-12T13:35:59+02:00" level=info msg="Deleting resources..."
+bucket.storage.gcp.upbound.io "testperf1122331" deleted
+bucket.storage.gcp.upbound.io "testperf1122332" deleted
+bucket.storage.gcp.upbound.io "testperf1122333" deleted
+bucket.storage.gcp.upbound.io "testperf1122334" deleted
+bucket.storage.gcp.upbound.io "testperf1122335" deleted
+bucket.storage.gcp.upbound.io "testperf1122336" deleted
+bucket.storage.gcp.upbound.io "testperf1122337" deleted
+bucket.storage.gcp.upbound.io "testperf1122338" deleted
+bucket.storage.gcp.upbound.io "testperf1122339" deleted
+bucket.storage.gcp.upbound.io "testperf11223310" deleted
+time="2023-05-12T13:36:43+02:00" level=info msg="\nExperiment Ended 2023-05-12 13:36:43.344110804 +0200 CEST m=+116.175172388\n\n"
+time="2023-05-12T13:36:43+02:00" level=info msg="Results\n------------------------------------------------------------\n"
+time="2023-05-12T13:36:43+02:00" level=info msg="Experiment Duration: 116.162361 seconds\n"
+time="2023-05-12T13:37:43+02:00" level=info msg="Average Time to Readiness of Bucket: 68.100000 seconds \n"
+time="2023-05-12T13:37:43+02:00" level=info msg="Peak Time to Readiness of Bucket: 71.000000 seconds \n"
+time="2023-05-12T13:37:43+02:00" level=info msg="Pod: upbound-release-candidates-provider-gcp-storage-3c1d8cc0c04lqhl"
+time="2023-05-12T13:37:43+02:00" level=info msg="Average Memory: 207782697.943503 Bytes \n"
+time="2023-05-12T13:37:43+02:00" level=info msg="Peak Memory: 479113216.000000 Bytes \n"
+time="2023-05-12T13:37:43+02:00" level=info msg="Pod: upbound-release-candidates-provider-gcp-storage-3c1d8cc0c04lqhl"
+time="2023-05-12T13:37:43+02:00" level=info msg="Average CPU: 4.042219 Rate \n"
+time="2023-05-12T13:37:43+02:00" level=info msg="Peak CPU: 7.681481 Rate \n"

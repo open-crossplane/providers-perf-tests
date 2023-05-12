@@ -14,11 +14,12 @@ def process_file(file_path):
 
     with open(file_path) as f:
         content = f.read()
-        content = content.split("Experiment Ended")[-1]
-        values = re.findall(r'msg=".*? (\d+\.?\d*)', content)
+        values = re.findall(r'msg="[^:]+: (\d+\.?\d*|NaN)', content)
+        if not values:
+            values = ["NaN"] * 8
 
     formatted_values = [
-        f"{float(val):.2f}" if "." in val else val for val in values
+        f"{float(val):.2f}" if "." in val and val != "NaN" else val for val in values
     ]
 
     return f"{platform}_{version};{run.rstrip('.txt')};{';'.join(formatted_values)}"
@@ -29,9 +30,12 @@ parser.add_argument('--file_pattern', default="test_*.txt", help="File pattern t
 args = parser.parse_args()
 
 raw_data_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', args.raw_data_folder)
-file_pattern = os.path.join(raw_data_folder, args.file_pattern)
 
-files = glob.glob(file_pattern)
+if os.path.isfile(args.file_pattern):
+    files = [args.file_pattern]
+else:
+    file_pattern = os.path.join(raw_data_folder, args.file_pattern)
+    files = glob.glob(file_pattern)
 
 headers = "Version;Runs;Experiment Duration;Average Time to Readiness in seconds ;Peak Time to Readiness in seconds ;Average Memory;Peak Memory;Average CPU %;Peak CPU %"
 combined_results = [headers]

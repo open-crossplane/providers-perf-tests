@@ -20,4 +20,4 @@ spec:
     storageClass: MULTI_REGIONAL
     uniformBucketLevelAccess: true
   providerConfigRef:
-    name: provider-gcp
+    name: default
