@@ -33,7 +33,7 @@ aks_location                        := "westeurope"
 # TODO: figure out why this doesn't render correctly in the secret
 base64encoded_aws_creds             := `printf "[default]\n    aws_access_key_id = %s\n    aws_secret_access_key = %s" "${AWS_KEY_ID}" "${AWS_SECRET}" | base64 | tr -d "\n"`
 providerconfig_aws_name             := "default"
-eks_node                            := "m5.2xlarge"
+eks_node                            := "c5.4xlarge"
 eks_region                          := "eu-central-1"
 
 # Other variables
@@ -46,17 +46,12 @@ random_suffix                       := `echo $RANDOM`
 default:
   @just --list --unsorted
 
-testme:
-  @echo $base64encoded_aws_creds
-  @envsubst < {{yaml}}/aws-provider-config.yaml | cat -
-
-
 # BASE INFRA SETUP {{{
 # * entry setup recepie, possible values: cluster: eks, aks, gke, uxprelease: stable, unstable. Creates a cluster with uxp and observability.
-setup_base cloud='aws' uxp_release='stable': (_setup_cluster cloud) (deploy_uxp uxp_release) _deploy_monitoring 
+setup_base cloud='aws' uxp_release='stable': (_setup_cluster cloud) (create_uxp uxp_release) _deploy_monitoring 
 
 # * install platform ref and setup ProviderConfig for a given cloud
-install_platformref cloud='aws': (_install_platform_ref "v0.1.0-rc.0" cloud) (_deploy_small_provider_config "apply" cloud)
+create_platformref cloud='aws': (create_platform_ref "v0.1.0-rc.0" cloud) (create_small_provider_config cloud)
 
 # helper recipe for translating between cloud names and clusters
 _setup_cluster cloud='aws':
@@ -118,7 +113,7 @@ _setup_gke:
 
 # MANAGE PROVIDERS {{{
 # deploy uxp
-deploy_uxp version='stable' namespace='upbound-system':
+create_uxp version='stable' namespace='upbound-system':
   @echo "Creating namespace {{namespace}}"
   @kubectl create namespace {{namespace}} --dry-run=client -o yaml | kubectl apply -f -
   @echo "Installing UXP with version {{version}}"
@@ -130,19 +125,24 @@ remove_uxp:
   @echo "Removing UXP"
   @up uxp uninstall 
 
-# install platform-ref GCP package
-_install_platform_ref version='v0.1.0' cloud='gcp':
+# deploy platform-ref 
+create_platform_ref version='v0.1.0' cloud='gcp':
   @echo "Deploying platform-ref {{cloud}} package"
   @up ctp configuration install xpkg.upbound.io/upbound-release-candidates/platform-ref-{{cloud}}:{{version}}
   @kubectl wait --for condition=Healthy=True --timeout=300s configuration/upbound-release-candidates-platform-ref-{{cloud}}
 
-# deploy GCP small provider config
-_deploy_small_provider_config op='apply' cloud='gcp':
-  @echo {{ if op == "apply" { "Deploying ProviderConfig for $cloud" } else { "Removing ProviderConfig for $cloud" } }}
-  @envsubst < {{yaml}}/{{cloud}}-provider-config.yaml | kubectl {{op}} -f - 
+# deploy small provider config
+create_small_provider_config cloud='gcp':
+  @echo Deploying ProviderConfig for $cloud"
+  @envsubst < {{yaml}}/{{cloud}}-provider-config.yaml | kubectl apply -f - 
+
+# remove small provider config
+remove_small_provider_config cloud='gcp':
+  @echo Removing ProviderConfig for $cloud"
+  @envsubst < {{yaml}}/{{cloud}}-provider-config.yaml | kubectl delete -f - 
 
 # deploy GCP official provider
-deploy_gcp_provider:
+create_gcp_provider:
   @echo "Setting up GCP official provider"
   @envsubst < {{yaml}}/gcp-provider.yaml | kubectl apply -f - 
   @kubectl wait --for condition=healthy --timeout=300s provider/provider-gcp
@@ -155,12 +155,12 @@ remove_gcp_provider:
   @envsubst < {{yaml}}/gcp-provider-config.yaml | kubectl delete -f - 
 
 # setup Azure official provider and make sure test resource group is created
-deploy_azure_provider:
+create_azure_provider:
   @echo "Setting up Azure official provider"
   @envsubst < {{yaml}}/azure-provider.yaml | kubectl apply -f - 
   @kubectl wait --for condition=healthy --timeout=300s provider/provider-azure
   @envsubst < {{yaml}}/azure-provider-config.yaml | kubectl apply -f - 
-  @just deploy_resource_group
+  @just create_resource_group
 
 # remove Azure official provider
 remove_azure_provider:
@@ -169,8 +169,12 @@ remove_azure_provider:
   @envsubst < {{yaml}}/azure-provider-config.yaml | kubectl delete -f - 
 
 # deploy resource group
-deploy_resource_group op='apply':
-  @kubectl {{op}} -f {{yaml}}/azure-rg.yaml
+create_azure_resource_group: 
+  @kubectl apply -f {{yaml}}/azure-rg.yaml
+
+# remove resource group
+remove_azure_resource_group: 
+  @kubectl delete -f {{yaml}}/azure-rg.yaml
 
 # deploy observability
 _deploy_monitoring:
@@ -191,32 +195,32 @@ _enable_prometheus_admin_api:
   @kubectl -n prometheus patch prometheus kube-prometheus-stack-prometheus --type merge --patch '{"spec":{"enableAdminAPI":true}}'
 
 # nuke upbound-system namespace
-nuke_upbound_system:
+remove_upbound_system:
   @echo "Removing upbound-system namespace"
   @kubectl delete namespace upbound-system
 
 # flexible watch
-watch RESOURCE='crossplane':
+help_watch RESOURCE='crossplane':
   watch kubectl get {{RESOURCE}}
 
 # port forward grafana, user: admin, pw: prom-operator
-launch_grafana:
+help_launch_grafana:
   nohup {{browse}} http://localhost:3000 >/dev/null 2>&1
   kubectl port-forward -n prometheus svc/kube-prometheus-stack-grafana 3000:80
 
 # port forward prometheus
-launch_prometheus:
+help_launch_prometheus:
   nohup {{browse}} http://localhost:9090 >/dev/null 2>&1
   kubectl port-forward -n prometheus svc/kube-prometheus-stack-prometheus 9090:9090
 
 # get node ip
-copy_node_ip:
+help_copy_node_ip:
   #!/usr/bin/env bash
   node_ip=$(kubectl get nodes -o wide | awk ' FNR == 2 {print $6}')
   echo "$node_ip" | {{copy}}
 
 # get prometheus query for memory
-copy_prometheus_memory_metric prov:
+help_copy_prometheus_memory_metric prov:
   #!/usr/bin/env bash
   pod=$(kubectl -n upbound-system get pod -l pkg.crossplane.io/provider=provider-{{prov}} -o name)
   pod="${pod##*/}"
@@ -224,13 +228,13 @@ copy_prometheus_memory_metric prov:
   echo -n "$sum" | {{copy}}
 
 # get prometheus clusterIP for prometheus configuration
-copy_prometheus_url:
+help_copy_prometheus_url:
   #!/usr/bin/env bash
   ip=$(kubectl get svc -n prometheus kube-prometheus-stack-prometheus -o jsonpath='{.spec.clusterIP}')
   echo http://"$ip":9090 | {{copy}}
 
 # upload Prometheus metrics to S3
-upload_prometheus_metrics:
+help_upload_prometheus_metrics:
   ./scripts/uploader.sh
 
 # update helm repos
@@ -242,21 +246,26 @@ _get_kubeconfig:
   @eksctl utils write-kubeconfig --cluster=eks-{{cluster_name}} --region=eu-central-1 --kubeconfig=./config --set-kubeconfig-context=true
 
 # deploy a sample bucket to verify the setup
-test_gcp_deployment:
+help_test_gcp_deployment:
   @echo "Test if cluster setup succesfull by depoloying a sample bucket"
   @envsubst < {{yaml}}/bucket.yaml | kubectl apply -f -
 
 # delete GCP test bucket
-delete_bucket:
+remove_bucket:
   @echo "Delete sample bucket if present"
   @envsubst < {{yaml}}/bucket.yaml | kubectl delete --ignore-not-found -f - 
 ### }}}
   
 # RUN TESTS {{{
 # deploy platform-ref-gcp claim
-deploy_platform_ref_claim op='apply' cloud='gcp':
-  @echo {{ if op == "apply" { "Deploying platform-ref-$cloud claim" } else { "Removing platform-ref-$cloud claim" } }}
-  @kubectl {{op}} -f https://raw.githubusercontent.com/upbound/platform-ref-{{cloud}}/main/examples/cluster-claim.yaml
+create_platform_ref_claim cloud='gcp':
+  @echo Deploying platform-ref-$cloud claim"
+  @kubectl apply -f https://raw.githubusercontent.com/upbound/platform-ref-{{cloud}}/main/examples/cluster-claim.yaml
+
+# remove platform-ref-gcp claim
+remove_platform_ref_claim cloud='gcp':
+  @echo Removing platform-ref-$cloud claim"
+  @kubectl delete -f https://raw.githubusercontent.com/upbound/platform-ref-{{cloud}}/main/examples/cluster-claim.yaml
 
 # run tests and collect metrics
 # TODO: collect all pods into an array and pass to the tool
@@ -264,12 +273,12 @@ run_tests prov iter='1':
   #!/usr/bin/env bash
   # go run github.com/Piotr1215/perf-tool-uptest/cmd/perf@performance-tool2 \
   if ! curl -q localhost:9090 > /dev/null 2>&1; then
-    echo "Launch prometheus metrics server port forwarding with just launch_prometheus"
+    echo "Launch prometheus metrics server port forwarding with just help_launch_prometheus"
     exit 1
   fi
            # --provider-pods "$pod" \
 
-  pod="upbound-release-candidates-provider-gcp-storage-3c1d8cc0c04lqhl"
+  pod="upbound-release-candidates-provider-azure-registry-541d9fadwz6g"
   # pod=$(kubectl -n upbound-system get pod -l pkg.crossplane.io/provider=provider-{{prov}} -o name)
   # pod="${pod##*/}"
   node_ip=$(kubectl get nodes -o wide | awk ' FNR == 2 {print $6}')
@@ -297,17 +306,17 @@ run_tests_azure:
 # }}}
 
 # TEARDOWN {{{
-# delete eks cluster
-delete_eks:
+# remove eks cluster
+remove_eks:
   @eksctl delete cluster --region={{eks_region}} --name=eks-{{cluster_name}}
 
-# delete aks cluster
-delete_aks:
+# remove aks cluster
+remove_aks:
   @az aks delete --name aks-{{cluster_name}} --resource-group {{aks_resource_group}} --yes
   @az group delete --name {{aks_resource_group}} --yes --no-wait
 
-# delete gke cluster
-delete_gke:
+# remove gke cluster
+remove_gke:
   #!/usr/bin/env bash
   set -euo pipefail
   echo "Set the environment variable for the Google Cloud service account"

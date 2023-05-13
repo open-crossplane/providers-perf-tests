@@ -4,7 +4,7 @@ metadata:
   name: perftestregistry$random_suffix
 spec:
   providerConfigRef:
-    name: provider-azure
+    name: default
   forProvider:
     adminEnabled: false
     location: "West Europe"

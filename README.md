@@ -110,6 +110,20 @@ In this example, `envsubst` reads the contents of the cluster.yaml file, replace
 
 ## Justfile overview
 
+To make the `justfile` recipes easier to read/execute, a simple naming
+convention is utilized:
+
+1. All recipes dealing with setting up base infrastructure (creating clusters)
+use the prefix `setup_`
+
+2. All recipes dealing with deploying or removing services, providers, etc use
+prefixes `create_` and `remove_` respectivelly
+
+3. All helper recipes used as convinient wrappers around commands use prefix
+`help_`.
+
+4. All recipes used to run tests start with prefix `run_`
+
 There are 3 main parts to setting up infrastructure and preparing the tests
 
 ### Setup base infrastructure
@@ -121,13 +135,13 @@ and observability stack installed:
 ! possible values: cluster: eks, aks, gke, uxprelease: stable, unstable. Creates a cluster with uxp and observability. !
 ```
 
-For example to setup an AKS cluster in azure with experimental build of `uxl`
+For example to setup an AKS cluster in azure with experimental build of `uxp`
 run `just setup_base azure unstable`.
 
 ### Install providers
 
 Depending on what providers you want to test _classic_ or _small providers_, use
-either `just install_platformref azure` for small providers or or `just
+either `just create_platformref azure` for small providers or or `just
 deploy_[cloud]_provider`.
 
 ### Run tests

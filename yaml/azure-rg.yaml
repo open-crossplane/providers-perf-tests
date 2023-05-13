@@ -10,4 +10,4 @@ spec:
   forProvider:
     location: "West Europe"
   providerConfigRef:
-    name: provider-azure
+    name: default

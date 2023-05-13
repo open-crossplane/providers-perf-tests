@@ -1,0 +1,6 @@
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: upbound-release-candidates-provider-aws-ecr
+spec:
+  package: xpkg.upbound.io/upbound-release-candidates/provider-aws-ecr:v0.2.0-rc.0
