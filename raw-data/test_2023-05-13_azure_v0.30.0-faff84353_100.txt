@@ -1,0 +1,274 @@
+time="2023-05-13T10:30:57+02:00" level=info msg="Experiment Started 2023-05-13 10:30:57.543718584 +0200 CEST m=+0.011529197\n\n"
+registry.containerregistry.azure.upbound.io/testperf1122331 created
+registry.containerregistry.azure.upbound.io/testperf1122332 created
+registry.containerregistry.azure.upbound.io/testperf1122333 created
+registry.containerregistry.azure.upbound.io/testperf1122334 created
+registry.containerregistry.azure.upbound.io/testperf1122335 created
+registry.containerregistry.azure.upbound.io/testperf1122336 created
+registry.containerregistry.azure.upbound.io/testperf1122337 created
+registry.containerregistry.azure.upbound.io/testperf1122338 created
+registry.containerregistry.azure.upbound.io/testperf1122339 created
+registry.containerregistry.azure.upbound.io/testperf11223310 created
+registry.containerregistry.azure.upbound.io/testperf11223311 created
+registry.containerregistry.azure.upbound.io/testperf11223312 created
+registry.containerregistry.azure.upbound.io/testperf11223313 created
+registry.containerregistry.azure.upbound.io/testperf11223314 created
+registry.containerregistry.azure.upbound.io/testperf11223315 created
+registry.containerregistry.azure.upbound.io/testperf11223316 created
+registry.containerregistry.azure.upbound.io/testperf11223317 created
+registry.containerregistry.azure.upbound.io/testperf11223318 created
+registry.containerregistry.azure.upbound.io/testperf11223319 created
+registry.containerregistry.azure.upbound.io/testperf11223320 created
+registry.containerregistry.azure.upbound.io/testperf11223321 created
+registry.containerregistry.azure.upbound.io/testperf11223322 created
+registry.containerregistry.azure.upbound.io/testperf11223323 created
+registry.containerregistry.azure.upbound.io/testperf11223324 created
+registry.containerregistry.azure.upbound.io/testperf11223325 created
+registry.containerregistry.azure.upbound.io/testperf11223326 created
+registry.containerregistry.azure.upbound.io/testperf11223327 created
+registry.containerregistry.azure.upbound.io/testperf11223328 created
+registry.containerregistry.azure.upbound.io/testperf11223329 created
+registry.containerregistry.azure.upbound.io/testperf11223330 created
+registry.containerregistry.azure.upbound.io/testperf11223331 created
+registry.containerregistry.azure.upbound.io/testperf11223332 created
+registry.containerregistry.azure.upbound.io/testperf11223333 created
+registry.containerregistry.azure.upbound.io/testperf11223334 created
+registry.containerregistry.azure.upbound.io/testperf11223335 created
+registry.containerregistry.azure.upbound.io/testperf11223336 created
+registry.containerregistry.azure.upbound.io/testperf11223337 created
+registry.containerregistry.azure.upbound.io/testperf11223338 created
+registry.containerregistry.azure.upbound.io/testperf11223339 created
+registry.containerregistry.azure.upbound.io/testperf11223340 created
+registry.containerregistry.azure.upbound.io/testperf11223341 created
+registry.containerregistry.azure.upbound.io/testperf11223342 created
+registry.containerregistry.azure.upbound.io/testperf11223343 created
+registry.containerregistry.azure.upbound.io/testperf11223344 created
+registry.containerregistry.azure.upbound.io/testperf11223345 created
+registry.containerregistry.azure.upbound.io/testperf11223346 created
+registry.containerregistry.azure.upbound.io/testperf11223347 created
+registry.containerregistry.azure.upbound.io/testperf11223348 created
+registry.containerregistry.azure.upbound.io/testperf11223349 created
+registry.containerregistry.azure.upbound.io/testperf11223350 created
+registry.containerregistry.azure.upbound.io/testperf11223351 created
+registry.containerregistry.azure.upbound.io/testperf11223352 created
+registry.containerregistry.azure.upbound.io/testperf11223353 created
+registry.containerregistry.azure.upbound.io/testperf11223354 created
+registry.containerregistry.azure.upbound.io/testperf11223355 created
+registry.containerregistry.azure.upbound.io/testperf11223356 created
+registry.containerregistry.azure.upbound.io/testperf11223357 created
+registry.containerregistry.azure.upbound.io/testperf11223358 created
+registry.containerregistry.azure.upbound.io/testperf11223359 created
+registry.containerregistry.azure.upbound.io/testperf11223360 created
+registry.containerregistry.azure.upbound.io/testperf11223361 created
+registry.containerregistry.azure.upbound.io/testperf11223362 created
+registry.containerregistry.azure.upbound.io/testperf11223363 created
+registry.containerregistry.azure.upbound.io/testperf11223364 created
+registry.containerregistry.azure.upbound.io/testperf11223365 created
+registry.containerregistry.azure.upbound.io/testperf11223366 created
+registry.containerregistry.azure.upbound.io/testperf11223367 created
+registry.containerregistry.azure.upbound.io/testperf11223368 created
+registry.containerregistry.azure.upbound.io/testperf11223369 created
+registry.containerregistry.azure.upbound.io/testperf11223370 created
+registry.containerregistry.azure.upbound.io/testperf11223371 created
+registry.containerregistry.azure.upbound.io/testperf11223372 created
+registry.containerregistry.azure.upbound.io/testperf11223373 created
+registry.containerregistry.azure.upbound.io/testperf11223374 created
+registry.containerregistry.azure.upbound.io/testperf11223375 created
+registry.containerregistry.azure.upbound.io/testperf11223376 created
+registry.containerregistry.azure.upbound.io/testperf11223377 created
+registry.containerregistry.azure.upbound.io/testperf11223378 created
+registry.containerregistry.azure.upbound.io/testperf11223379 created
+registry.containerregistry.azure.upbound.io/testperf11223380 created
+registry.containerregistry.azure.upbound.io/testperf11223381 created
+registry.containerregistry.azure.upbound.io/testperf11223382 created
+registry.containerregistry.azure.upbound.io/testperf11223383 created
+registry.containerregistry.azure.upbound.io/testperf11223384 created
+registry.containerregistry.azure.upbound.io/testperf11223385 created
+registry.containerregistry.azure.upbound.io/testperf11223386 created
+registry.containerregistry.azure.upbound.io/testperf11223387 created
+registry.containerregistry.azure.upbound.io/testperf11223388 created
+registry.containerregistry.azure.upbound.io/testperf11223389 created
+registry.containerregistry.azure.upbound.io/testperf11223390 created
+registry.containerregistry.azure.upbound.io/testperf11223391 created
+registry.containerregistry.azure.upbound.io/testperf11223392 created
+registry.containerregistry.azure.upbound.io/testperf11223393 created
+registry.containerregistry.azure.upbound.io/testperf11223394 created
+registry.containerregistry.azure.upbound.io/testperf11223395 created
+registry.containerregistry.azure.upbound.io/testperf11223396 created
+registry.containerregistry.azure.upbound.io/testperf11223397 created
+registry.containerregistry.azure.upbound.io/testperf11223398 created
+registry.containerregistry.azure.upbound.io/testperf11223399 created
+registry.containerregistry.azure.upbound.io/testperf112233100 created
+time="2023-05-13T10:31:03+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:31:14+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:31:24+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:31:34+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:31:44+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:31:55+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:32:05+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:32:15+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:32:25+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:32:35+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:32:45+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:32:56+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:33:06+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:33:16+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:33:26+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:33:36+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:33:46+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:33:57+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:34:07+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:34:17+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:34:27+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:34:37+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:34:47+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:34:58+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:35:08+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:35:18+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:35:28+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:35:38+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:35:48+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:35:59+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:36:09+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:36:19+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:36:29+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:36:40+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:36:50+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:37:00+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:37:10+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:37:21+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:37:31+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:37:41+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:37:51+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:38:01+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:38:12+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:38:22+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:38:32+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:38:42+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:38:53+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:39:03+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:39:13+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:39:23+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:39:33+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:39:43+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:39:54+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:40:04+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:40:14+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:40:24+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:40:34+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:40:45+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:40:55+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:41:05+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:41:05+02:00" level=info msg="Calculating readiness time of resources..."
+time="2023-05-13T10:41:05+02:00" level=info msg="Deleting resources..."
+registry.containerregistry.azure.upbound.io "testperf1122331" deleted
+registry.containerregistry.azure.upbound.io "testperf1122332" deleted
+registry.containerregistry.azure.upbound.io "testperf1122333" deleted
+registry.containerregistry.azure.upbound.io "testperf1122334" deleted
+registry.containerregistry.azure.upbound.io "testperf1122335" deleted
+registry.containerregistry.azure.upbound.io "testperf1122336" deleted
+registry.containerregistry.azure.upbound.io "testperf1122337" deleted
+registry.containerregistry.azure.upbound.io "testperf1122338" deleted
+registry.containerregistry.azure.upbound.io "testperf1122339" deleted
+registry.containerregistry.azure.upbound.io "testperf11223310" deleted
+registry.containerregistry.azure.upbound.io "testperf11223311" deleted
+registry.containerregistry.azure.upbound.io "testperf11223312" deleted
+registry.containerregistry.azure.upbound.io "testperf11223313" deleted
+registry.containerregistry.azure.upbound.io "testperf11223314" deleted
+registry.containerregistry.azure.upbound.io "testperf11223315" deleted
+registry.containerregistry.azure.upbound.io "testperf11223316" deleted
+registry.containerregistry.azure.upbound.io "testperf11223317" deleted
+registry.containerregistry.azure.upbound.io "testperf11223318" deleted
+registry.containerregistry.azure.upbound.io "testperf11223319" deleted
+registry.containerregistry.azure.upbound.io "testperf11223320" deleted
+registry.containerregistry.azure.upbound.io "testperf11223321" deleted
+registry.containerregistry.azure.upbound.io "testperf11223322" deleted
+registry.containerregistry.azure.upbound.io "testperf11223323" deleted
+registry.containerregistry.azure.upbound.io "testperf11223324" deleted
+registry.containerregistry.azure.upbound.io "testperf11223325" deleted
+registry.containerregistry.azure.upbound.io "testperf11223326" deleted
+registry.containerregistry.azure.upbound.io "testperf11223327" deleted
+registry.containerregistry.azure.upbound.io "testperf11223328" deleted
+registry.containerregistry.azure.upbound.io "testperf11223329" deleted
+registry.containerregistry.azure.upbound.io "testperf11223330" deleted
+registry.containerregistry.azure.upbound.io "testperf11223331" deleted
+registry.containerregistry.azure.upbound.io "testperf11223332" deleted
+registry.containerregistry.azure.upbound.io "testperf11223333" deleted
+registry.containerregistry.azure.upbound.io "testperf11223334" deleted
+registry.containerregistry.azure.upbound.io "testperf11223335" deleted
+registry.containerregistry.azure.upbound.io "testperf11223336" deleted
+registry.containerregistry.azure.upbound.io "testperf11223337" deleted
+registry.containerregistry.azure.upbound.io "testperf11223338" deleted
+registry.containerregistry.azure.upbound.io "testperf11223339" deleted
+registry.containerregistry.azure.upbound.io "testperf11223340" deleted
+registry.containerregistry.azure.upbound.io "testperf11223341" deleted
+registry.containerregistry.azure.upbound.io "testperf11223342" deleted
+registry.containerregistry.azure.upbound.io "testperf11223343" deleted
+registry.containerregistry.azure.upbound.io "testperf11223344" deleted
+registry.containerregistry.azure.upbound.io "testperf11223345" deleted
+registry.containerregistry.azure.upbound.io "testperf11223346" deleted
+registry.containerregistry.azure.upbound.io "testperf11223347" deleted
+registry.containerregistry.azure.upbound.io "testperf11223348" deleted
+registry.containerregistry.azure.upbound.io "testperf11223349" deleted
+registry.containerregistry.azure.upbound.io "testperf11223350" deleted
+registry.containerregistry.azure.upbound.io "testperf11223351" deleted
+registry.containerregistry.azure.upbound.io "testperf11223352" deleted
+registry.containerregistry.azure.upbound.io "testperf11223353" deleted
+registry.containerregistry.azure.upbound.io "testperf11223354" deleted
+registry.containerregistry.azure.upbound.io "testperf11223355" deleted
+registry.containerregistry.azure.upbound.io "testperf11223356" deleted
+registry.containerregistry.azure.upbound.io "testperf11223357" deleted
+registry.containerregistry.azure.upbound.io "testperf11223358" deleted
+registry.containerregistry.azure.upbound.io "testperf11223359" deleted
+registry.containerregistry.azure.upbound.io "testperf11223360" deleted
+registry.containerregistry.azure.upbound.io "testperf11223361" deleted
+registry.containerregistry.azure.upbound.io "testperf11223362" deleted
+registry.containerregistry.azure.upbound.io "testperf11223363" deleted
+registry.containerregistry.azure.upbound.io "testperf11223364" deleted
+registry.containerregistry.azure.upbound.io "testperf11223365" deleted
+registry.containerregistry.azure.upbound.io "testperf11223366" deleted
+registry.containerregistry.azure.upbound.io "testperf11223367" deleted
+registry.containerregistry.azure.upbound.io "testperf11223368" deleted
+registry.containerregistry.azure.upbound.io "testperf11223369" deleted
+registry.containerregistry.azure.upbound.io "testperf11223370" deleted
+registry.containerregistry.azure.upbound.io "testperf11223371" deleted
+registry.containerregistry.azure.upbound.io "testperf11223372" deleted
+registry.containerregistry.azure.upbound.io "testperf11223373" deleted
+registry.containerregistry.azure.upbound.io "testperf11223374" deleted
+registry.containerregistry.azure.upbound.io "testperf11223375" deleted
+registry.containerregistry.azure.upbound.io "testperf11223376" deleted
+registry.containerregistry.azure.upbound.io "testperf11223377" deleted
+registry.containerregistry.azure.upbound.io "testperf11223378" deleted
+registry.containerregistry.azure.upbound.io "testperf11223379" deleted
+registry.containerregistry.azure.upbound.io "testperf11223380" deleted
+registry.containerregistry.azure.upbound.io "testperf11223381" deleted
+registry.containerregistry.azure.upbound.io "testperf11223382" deleted
+registry.containerregistry.azure.upbound.io "testperf11223383" deleted
+registry.containerregistry.azure.upbound.io "testperf11223384" deleted
+registry.containerregistry.azure.upbound.io "testperf11223385" deleted
+registry.containerregistry.azure.upbound.io "testperf11223386" deleted
+registry.containerregistry.azure.upbound.io "testperf11223387" deleted
+registry.containerregistry.azure.upbound.io "testperf11223388" deleted
+registry.containerregistry.azure.upbound.io "testperf11223389" deleted
+registry.containerregistry.azure.upbound.io "testperf11223390" deleted
+registry.containerregistry.azure.upbound.io "testperf11223391" deleted
+registry.containerregistry.azure.upbound.io "testperf11223392" deleted
+registry.containerregistry.azure.upbound.io "testperf11223393" deleted
+registry.containerregistry.azure.upbound.io "testperf11223394" deleted
+registry.containerregistry.azure.upbound.io "testperf11223395" deleted
+registry.containerregistry.azure.upbound.io "testperf11223396" deleted
+registry.containerregistry.azure.upbound.io "testperf11223397" deleted
+registry.containerregistry.azure.upbound.io "testperf11223398" deleted
+registry.containerregistry.azure.upbound.io "testperf11223399" deleted
+registry.containerregistry.azure.upbound.io "testperf112233100" deleted
+time="2023-05-13T10:45:04+02:00" level=info msg="\nExperiment Ended 2023-05-13 10:45:04.343446492 +0200 CEST m=+846.811257176\n\n"
+time="2023-05-13T10:45:04+02:00" level=info msg="Results\n------------------------------------------------------------\n"
+time="2023-05-13T10:45:04+02:00" level=info msg="Experiment Duration: 846.799728 seconds\n"
+time="2023-05-13T10:46:04+02:00" level=info msg="Average Time to Readiness of Registry: 269.140000 seconds \n"
+time="2023-05-13T10:46:04+02:00" level=info msg="Peak Time to Readiness of Registry: 596.000000 seconds \n"
+time="2023-05-13T10:46:04+02:00" level=info msg="Pod: upbound-release-candidates-provider-azure-registry-541d9fadwz6g"
+time="2023-05-13T10:46:04+02:00" level=info msg="Average Memory: 660428562.910695 Bytes \n"
+time="2023-05-13T10:46:04+02:00" level=info msg="Peak Memory: 1759850496.000000 Bytes \n"
+time="2023-05-13T10:46:04+02:00" level=info msg="Pod: upbound-release-candidates-provider-azure-registry-541d9fadwz6g"
+time="2023-05-13T10:46:04+02:00" level=info msg="Average CPU: 12.341040 Rate \n"
+time="2023-05-13T10:46:04+02:00" level=info msg="Peak CPU: 16.026189 Rate \n"

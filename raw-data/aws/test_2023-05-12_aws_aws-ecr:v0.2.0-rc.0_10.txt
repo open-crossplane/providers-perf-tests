@@ -1,0 +1,36 @@
+time="2023-05-12T18:31:01+02:00" level=info msg="Experiment Started 2023-05-12 18:31:01.406416621 +0200 CEST m=+0.013123255\n\n"
+repository.ecr.aws.upbound.io/testperf1122331 created
+repository.ecr.aws.upbound.io/testperf1122332 created
+repository.ecr.aws.upbound.io/testperf1122333 created
+repository.ecr.aws.upbound.io/testperf1122334 created
+repository.ecr.aws.upbound.io/testperf1122335 created
+repository.ecr.aws.upbound.io/testperf1122336 created
+repository.ecr.aws.upbound.io/testperf1122337 created
+repository.ecr.aws.upbound.io/testperf1122338 created
+repository.ecr.aws.upbound.io/testperf1122339 created
+repository.ecr.aws.upbound.io/testperf11223310 created
+time="2023-05-12T18:31:02+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T18:31:13+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T18:31:13+02:00" level=info msg="Calculating readiness time of resources..."
+time="2023-05-12T18:31:13+02:00" level=info msg="Deleting resources..."
+repository.ecr.aws.upbound.io "testperf1122331" deleted
+repository.ecr.aws.upbound.io "testperf1122332" deleted
+repository.ecr.aws.upbound.io "testperf1122333" deleted
+repository.ecr.aws.upbound.io "testperf1122334" deleted
+repository.ecr.aws.upbound.io "testperf1122335" deleted
+repository.ecr.aws.upbound.io "testperf1122336" deleted
+repository.ecr.aws.upbound.io "testperf1122337" deleted
+repository.ecr.aws.upbound.io "testperf1122338" deleted
+repository.ecr.aws.upbound.io "testperf1122339" deleted
+repository.ecr.aws.upbound.io "testperf11223310" deleted
+time="2023-05-12T18:32:02+02:00" level=info msg="\nExperiment Ended 2023-05-12 18:32:02.864388786 +0200 CEST m=+61.471095488\n\n"
+time="2023-05-12T18:32:02+02:00" level=info msg="Results\n------------------------------------------------------------\n"
+time="2023-05-12T18:32:02+02:00" level=info msg="Experiment Duration: 61.457972 seconds\n"
+time="2023-05-12T18:33:02+02:00" level=info msg="Average Time to Readiness of Repository: 7.000000 seconds \n"
+time="2023-05-12T18:33:02+02:00" level=info msg="Peak Time to Readiness of Repository: 7.000000 seconds \n"
+time="2023-05-12T18:33:02+02:00" level=info msg="Pod: upbound-release-candidates-provider-aws-ecr-d9ca4780182b-fg2xhz"
+time="2023-05-12T18:33:02+02:00" level=info msg="Average Memory: 440444290.098361 Bytes \n"
+time="2023-05-12T18:33:02+02:00" level=info msg="Peak Memory: 1166643200.000000 Bytes \n"
+time="2023-05-12T18:33:02+02:00" level=info msg="Pod: upbound-release-candidates-provider-aws-ecr-d9ca4780182b-fg2xhz"
+time="2023-05-12T18:33:02+02:00" level=info msg="Average CPU: 6.007393 Rate \n"
+time="2023-05-12T18:33:02+02:00" level=info msg="Peak CPU: 7.803241 Rate \n"

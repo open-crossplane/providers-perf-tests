@@ -1,0 +1,225 @@
+time="2023-05-12T18:40:59+02:00" level=info msg="Experiment Started 2023-05-12 18:40:59.007136069 +0200 CEST m=+0.014397919\n\n"
+repository.ecr.aws.upbound.io/testperf1122331 created
+repository.ecr.aws.upbound.io/testperf1122332 created
+repository.ecr.aws.upbound.io/testperf1122333 created
+repository.ecr.aws.upbound.io/testperf1122334 created
+repository.ecr.aws.upbound.io/testperf1122335 created
+repository.ecr.aws.upbound.io/testperf1122336 created
+repository.ecr.aws.upbound.io/testperf1122337 created
+repository.ecr.aws.upbound.io/testperf1122338 created
+repository.ecr.aws.upbound.io/testperf1122339 created
+repository.ecr.aws.upbound.io/testperf11223310 created
+repository.ecr.aws.upbound.io/testperf11223311 created
+repository.ecr.aws.upbound.io/testperf11223312 created
+repository.ecr.aws.upbound.io/testperf11223313 created
+repository.ecr.aws.upbound.io/testperf11223314 created
+repository.ecr.aws.upbound.io/testperf11223315 created
+repository.ecr.aws.upbound.io/testperf11223316 created
+repository.ecr.aws.upbound.io/testperf11223317 created
+repository.ecr.aws.upbound.io/testperf11223318 created
+repository.ecr.aws.upbound.io/testperf11223319 created
+repository.ecr.aws.upbound.io/testperf11223320 created
+repository.ecr.aws.upbound.io/testperf11223321 created
+repository.ecr.aws.upbound.io/testperf11223322 created
+repository.ecr.aws.upbound.io/testperf11223323 created
+repository.ecr.aws.upbound.io/testperf11223324 created
+repository.ecr.aws.upbound.io/testperf11223325 created
+repository.ecr.aws.upbound.io/testperf11223326 created
+repository.ecr.aws.upbound.io/testperf11223327 created
+repository.ecr.aws.upbound.io/testperf11223328 created
+repository.ecr.aws.upbound.io/testperf11223329 created
+repository.ecr.aws.upbound.io/testperf11223330 created
+repository.ecr.aws.upbound.io/testperf11223331 created
+repository.ecr.aws.upbound.io/testperf11223332 created
+repository.ecr.aws.upbound.io/testperf11223333 created
+repository.ecr.aws.upbound.io/testperf11223334 created
+repository.ecr.aws.upbound.io/testperf11223335 created
+repository.ecr.aws.upbound.io/testperf11223336 created
+repository.ecr.aws.upbound.io/testperf11223337 created
+repository.ecr.aws.upbound.io/testperf11223338 created
+repository.ecr.aws.upbound.io/testperf11223339 created
+repository.ecr.aws.upbound.io/testperf11223340 created
+repository.ecr.aws.upbound.io/testperf11223341 created
+repository.ecr.aws.upbound.io/testperf11223342 created
+repository.ecr.aws.upbound.io/testperf11223343 created
+repository.ecr.aws.upbound.io/testperf11223344 created
+repository.ecr.aws.upbound.io/testperf11223345 created
+repository.ecr.aws.upbound.io/testperf11223346 created
+repository.ecr.aws.upbound.io/testperf11223347 created
+repository.ecr.aws.upbound.io/testperf11223348 created
+repository.ecr.aws.upbound.io/testperf11223349 created
+repository.ecr.aws.upbound.io/testperf11223350 created
+repository.ecr.aws.upbound.io/testperf11223351 created
+repository.ecr.aws.upbound.io/testperf11223352 created
+repository.ecr.aws.upbound.io/testperf11223353 created
+repository.ecr.aws.upbound.io/testperf11223354 created
+repository.ecr.aws.upbound.io/testperf11223355 created
+repository.ecr.aws.upbound.io/testperf11223356 created
+repository.ecr.aws.upbound.io/testperf11223357 created
+repository.ecr.aws.upbound.io/testperf11223358 created
+repository.ecr.aws.upbound.io/testperf11223359 created
+repository.ecr.aws.upbound.io/testperf11223360 created
+repository.ecr.aws.upbound.io/testperf11223361 created
+repository.ecr.aws.upbound.io/testperf11223362 created
+repository.ecr.aws.upbound.io/testperf11223363 created
+repository.ecr.aws.upbound.io/testperf11223364 created
+repository.ecr.aws.upbound.io/testperf11223365 created
+repository.ecr.aws.upbound.io/testperf11223366 created
+repository.ecr.aws.upbound.io/testperf11223367 created
+repository.ecr.aws.upbound.io/testperf11223368 created
+repository.ecr.aws.upbound.io/testperf11223369 created
+repository.ecr.aws.upbound.io/testperf11223370 created
+repository.ecr.aws.upbound.io/testperf11223371 created
+repository.ecr.aws.upbound.io/testperf11223372 created
+repository.ecr.aws.upbound.io/testperf11223373 created
+repository.ecr.aws.upbound.io/testperf11223374 created
+repository.ecr.aws.upbound.io/testperf11223375 created
+repository.ecr.aws.upbound.io/testperf11223376 created
+repository.ecr.aws.upbound.io/testperf11223377 created
+repository.ecr.aws.upbound.io/testperf11223378 created
+repository.ecr.aws.upbound.io/testperf11223379 created
+repository.ecr.aws.upbound.io/testperf11223380 created
+repository.ecr.aws.upbound.io/testperf11223381 created
+repository.ecr.aws.upbound.io/testperf11223382 created
+repository.ecr.aws.upbound.io/testperf11223383 created
+repository.ecr.aws.upbound.io/testperf11223384 created
+repository.ecr.aws.upbound.io/testperf11223385 created
+repository.ecr.aws.upbound.io/testperf11223386 created
+repository.ecr.aws.upbound.io/testperf11223387 created
+repository.ecr.aws.upbound.io/testperf11223388 created
+repository.ecr.aws.upbound.io/testperf11223389 created
+repository.ecr.aws.upbound.io/testperf11223390 created
+repository.ecr.aws.upbound.io/testperf11223391 created
+repository.ecr.aws.upbound.io/testperf11223392 created
+repository.ecr.aws.upbound.io/testperf11223393 created
+repository.ecr.aws.upbound.io/testperf11223394 created
+repository.ecr.aws.upbound.io/testperf11223395 created
+repository.ecr.aws.upbound.io/testperf11223396 created
+repository.ecr.aws.upbound.io/testperf11223397 created
+repository.ecr.aws.upbound.io/testperf11223398 created
+repository.ecr.aws.upbound.io/testperf11223399 created
+repository.ecr.aws.upbound.io/testperf112233100 created
+time="2023-05-12T18:41:05+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T18:41:15+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T18:41:26+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T18:41:36+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T18:41:46+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T18:41:56+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T18:42:07+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T18:42:17+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T18:42:27+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T18:42:37+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T18:42:47+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-12T18:42:48+02:00" level=info msg="Calculating readiness time of resources..."
+time="2023-05-12T18:42:48+02:00" level=info msg="Deleting resources..."
+repository.ecr.aws.upbound.io "testperf1122331" deleted
+repository.ecr.aws.upbound.io "testperf1122332" deleted
+repository.ecr.aws.upbound.io "testperf1122333" deleted
+repository.ecr.aws.upbound.io "testperf1122334" deleted
+repository.ecr.aws.upbound.io "testperf1122335" deleted
+repository.ecr.aws.upbound.io "testperf1122336" deleted
+repository.ecr.aws.upbound.io "testperf1122337" deleted
+repository.ecr.aws.upbound.io "testperf1122338" deleted
+repository.ecr.aws.upbound.io "testperf1122339" deleted
+repository.ecr.aws.upbound.io "testperf11223310" deleted
+repository.ecr.aws.upbound.io "testperf11223311" deleted
+repository.ecr.aws.upbound.io "testperf11223312" deleted
+repository.ecr.aws.upbound.io "testperf11223313" deleted
+repository.ecr.aws.upbound.io "testperf11223314" deleted
+repository.ecr.aws.upbound.io "testperf11223315" deleted
+repository.ecr.aws.upbound.io "testperf11223316" deleted
+repository.ecr.aws.upbound.io "testperf11223317" deleted
+repository.ecr.aws.upbound.io "testperf11223318" deleted
+repository.ecr.aws.upbound.io "testperf11223319" deleted
+repository.ecr.aws.upbound.io "testperf11223320" deleted
+repository.ecr.aws.upbound.io "testperf11223321" deleted
+repository.ecr.aws.upbound.io "testperf11223322" deleted
+repository.ecr.aws.upbound.io "testperf11223323" deleted
+repository.ecr.aws.upbound.io "testperf11223324" deleted
+repository.ecr.aws.upbound.io "testperf11223325" deleted
+repository.ecr.aws.upbound.io "testperf11223326" deleted
+repository.ecr.aws.upbound.io "testperf11223327" deleted
+repository.ecr.aws.upbound.io "testperf11223328" deleted
+repository.ecr.aws.upbound.io "testperf11223329" deleted
+repository.ecr.aws.upbound.io "testperf11223330" deleted
+repository.ecr.aws.upbound.io "testperf11223331" deleted
+repository.ecr.aws.upbound.io "testperf11223332" deleted
+repository.ecr.aws.upbound.io "testperf11223333" deleted
+repository.ecr.aws.upbound.io "testperf11223334" deleted
+repository.ecr.aws.upbound.io "testperf11223335" deleted
+repository.ecr.aws.upbound.io "testperf11223336" deleted
+repository.ecr.aws.upbound.io "testperf11223337" deleted
+repository.ecr.aws.upbound.io "testperf11223338" deleted
+repository.ecr.aws.upbound.io "testperf11223339" deleted
+repository.ecr.aws.upbound.io "testperf11223340" deleted
+repository.ecr.aws.upbound.io "testperf11223341" deleted
+repository.ecr.aws.upbound.io "testperf11223342" deleted
+repository.ecr.aws.upbound.io "testperf11223343" deleted
+repository.ecr.aws.upbound.io "testperf11223344" deleted
+repository.ecr.aws.upbound.io "testperf11223345" deleted
+repository.ecr.aws.upbound.io "testperf11223346" deleted
+repository.ecr.aws.upbound.io "testperf11223347" deleted
+repository.ecr.aws.upbound.io "testperf11223348" deleted
+repository.ecr.aws.upbound.io "testperf11223349" deleted
+repository.ecr.aws.upbound.io "testperf11223350" deleted
+repository.ecr.aws.upbound.io "testperf11223351" deleted
+repository.ecr.aws.upbound.io "testperf11223352" deleted
+repository.ecr.aws.upbound.io "testperf11223353" deleted
+repository.ecr.aws.upbound.io "testperf11223354" deleted
+repository.ecr.aws.upbound.io "testperf11223355" deleted
+repository.ecr.aws.upbound.io "testperf11223356" deleted
+repository.ecr.aws.upbound.io "testperf11223357" deleted
+repository.ecr.aws.upbound.io "testperf11223358" deleted
+repository.ecr.aws.upbound.io "testperf11223359" deleted
+repository.ecr.aws.upbound.io "testperf11223360" deleted
+repository.ecr.aws.upbound.io "testperf11223361" deleted
+repository.ecr.aws.upbound.io "testperf11223362" deleted
+repository.ecr.aws.upbound.io "testperf11223363" deleted
+repository.ecr.aws.upbound.io "testperf11223364" deleted
+repository.ecr.aws.upbound.io "testperf11223365" deleted
+repository.ecr.aws.upbound.io "testperf11223366" deleted
+repository.ecr.aws.upbound.io "testperf11223367" deleted
+repository.ecr.aws.upbound.io "testperf11223368" deleted
+repository.ecr.aws.upbound.io "testperf11223369" deleted
+repository.ecr.aws.upbound.io "testperf11223370" deleted
+repository.ecr.aws.upbound.io "testperf11223371" deleted
+repository.ecr.aws.upbound.io "testperf11223372" deleted
+repository.ecr.aws.upbound.io "testperf11223373" deleted
+repository.ecr.aws.upbound.io "testperf11223374" deleted
+repository.ecr.aws.upbound.io "testperf11223375" deleted
+repository.ecr.aws.upbound.io "testperf11223376" deleted
+repository.ecr.aws.upbound.io "testperf11223377" deleted
+repository.ecr.aws.upbound.io "testperf11223378" deleted
+repository.ecr.aws.upbound.io "testperf11223379" deleted
+repository.ecr.aws.upbound.io "testperf11223380" deleted
+repository.ecr.aws.upbound.io "testperf11223381" deleted
+repository.ecr.aws.upbound.io "testperf11223382" deleted
+repository.ecr.aws.upbound.io "testperf11223383" deleted
+repository.ecr.aws.upbound.io "testperf11223384" deleted
+repository.ecr.aws.upbound.io "testperf11223385" deleted
+repository.ecr.aws.upbound.io "testperf11223386" deleted
+repository.ecr.aws.upbound.io "testperf11223387" deleted
+repository.ecr.aws.upbound.io "testperf11223388" deleted
+repository.ecr.aws.upbound.io "testperf11223389" deleted
+repository.ecr.aws.upbound.io "testperf11223390" deleted
+repository.ecr.aws.upbound.io "testperf11223391" deleted
+repository.ecr.aws.upbound.io "testperf11223392" deleted
+repository.ecr.aws.upbound.io "testperf11223393" deleted
+repository.ecr.aws.upbound.io "testperf11223394" deleted
+repository.ecr.aws.upbound.io "testperf11223395" deleted
+repository.ecr.aws.upbound.io "testperf11223396" deleted
+repository.ecr.aws.upbound.io "testperf11223397" deleted
+repository.ecr.aws.upbound.io "testperf11223398" deleted
+repository.ecr.aws.upbound.io "testperf11223399" deleted
+repository.ecr.aws.upbound.io "testperf112233100" deleted
+time="2023-05-12T18:44:07+02:00" level=info msg="\nExperiment Ended 2023-05-12 18:44:07.52719977 +0200 CEST m=+188.534461651\n\n"
+time="2023-05-12T18:44:07+02:00" level=info msg="Results\n------------------------------------------------------------\n"
+time="2023-05-12T18:44:07+02:00" level=info msg="Experiment Duration: 188.520064 seconds\n"
+time="2023-05-12T18:45:07+02:00" level=info msg="Average Time to Readiness of Repository: 54.370000 seconds \n"
+time="2023-05-12T18:45:07+02:00" level=info msg="Peak Time to Readiness of Repository: 103.000000 seconds \n"
+time="2023-05-12T18:45:07+02:00" level=info msg="Pod: upbound-release-candidates-provider-aws-ecr-d9ca4780182b-fg2xhz"
+time="2023-05-12T18:45:07+02:00" level=info msg="Average Memory: 1064768294.040161 Bytes \n"
+time="2023-05-12T18:45:07+02:00" level=info msg="Peak Memory: 2137165824.000000 Bytes \n"
+time="2023-05-12T18:45:07+02:00" level=info msg="Pod: upbound-release-candidates-provider-aws-ecr-d9ca4780182b-fg2xhz"
+time="2023-05-12T18:45:07+02:00" level=info msg="Average CPU: 32.610557 Rate \n"
+time="2023-05-12T18:45:07+02:00" level=info msg="Peak CPU: 57.990278 Rate \n"

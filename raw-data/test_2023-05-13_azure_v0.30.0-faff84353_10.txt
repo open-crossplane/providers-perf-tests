@@ -1,0 +1,41 @@
+time="2023-05-13T10:17:46+02:00" level=info msg="Experiment Started 2023-05-13 10:17:46.823751035 +0200 CEST m=+0.012307521\n\n"
+registry.containerregistry.azure.upbound.io/testperf1122331 created
+registry.containerregistry.azure.upbound.io/testperf1122332 created
+registry.containerregistry.azure.upbound.io/testperf1122333 created
+registry.containerregistry.azure.upbound.io/testperf1122334 created
+registry.containerregistry.azure.upbound.io/testperf1122335 created
+registry.containerregistry.azure.upbound.io/testperf1122336 created
+registry.containerregistry.azure.upbound.io/testperf1122337 created
+registry.containerregistry.azure.upbound.io/testperf1122338 created
+registry.containerregistry.azure.upbound.io/testperf1122339 created
+registry.containerregistry.azure.upbound.io/testperf11223310 created
+time="2023-05-13T10:17:48+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:17:58+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:18:08+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:18:18+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:18:28+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:18:39+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:18:49+02:00" level=info msg="Checking readiness of resources..."
+time="2023-05-13T10:18:49+02:00" level=info msg="Calculating readiness time of resources..."
+time="2023-05-13T10:18:49+02:00" level=info msg="Deleting resources..."
+registry.containerregistry.azure.upbound.io "testperf1122331" deleted
+registry.containerregistry.azure.upbound.io "testperf1122332" deleted
+registry.containerregistry.azure.upbound.io "testperf1122333" deleted
+registry.containerregistry.azure.upbound.io "testperf1122334" deleted
+registry.containerregistry.azure.upbound.io "testperf1122335" deleted
+registry.containerregistry.azure.upbound.io "testperf1122336" deleted
+registry.containerregistry.azure.upbound.io "testperf1122337" deleted
+registry.containerregistry.azure.upbound.io "testperf1122338" deleted
+registry.containerregistry.azure.upbound.io "testperf1122339" deleted
+registry.containerregistry.azure.upbound.io "testperf11223310" deleted
+time="2023-05-13T10:20:02+02:00" level=info msg="\nExperiment Ended 2023-05-13 10:20:02.228898508 +0200 CEST m=+135.417455059\n\n"
+time="2023-05-13T10:20:02+02:00" level=info msg="Results\n------------------------------------------------------------\n"
+time="2023-05-13T10:20:02+02:00" level=info msg="Experiment Duration: 135.405148 seconds\n"
+time="2023-05-13T10:21:02+02:00" level=info msg="Average Time to Readiness of Registry: 54.400000 seconds \n"
+time="2023-05-13T10:21:02+02:00" level=info msg="Peak Time to Readiness of Registry: 56.000000 seconds \n"
+time="2023-05-13T10:21:02+02:00" level=info msg="Pod: upbound-release-candidates-provider-azure-registry-541d9fadwz6g"
+time="2023-05-13T10:21:02+02:00" level=info msg="Average Memory: 340943349.551020 Bytes \n"
+time="2023-05-13T10:21:02+02:00" level=info msg="Peak Memory: 624828416.000000 Bytes \n"
+time="2023-05-13T10:21:02+02:00" level=info msg="Pod: upbound-release-candidates-provider-azure-registry-541d9fadwz6g"
+time="2023-05-13T10:21:02+02:00" level=info msg="Average CPU: 2.327732 Rate \n"
+time="2023-05-13T10:21:02+02:00" level=info msg="Peak CPU: 3.601389 Rate \n"
